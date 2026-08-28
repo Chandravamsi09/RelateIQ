@@ -15,336 +15,485 @@
 </head>
 <body class="text-slate-100 antialiased h-screen flex overflow-hidden">
 
-  <!-- Sidebar -->
-  <aside id="sidebar" class="w-64 bg-slate-950 border-r border-slate-800 flex flex-col flex-shrink-0 transition-all duration-300">
-    
-    <!-- Sidebar Header -->
-    <div id="sidebar-header" class="h-16 flex items-center justify-between px-4 border-b border-slate-800">
-      <!-- Expanded Brand Header -->
-      <div id="brand-expanded" class="flex items-center gap-3 min-w-0">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 flex items-center justify-center font-black text-white shadow-lg shadow-blue-500/25 flex-shrink-0">
+  <!-- ========================================== -->
+  <!-- 0. LOGIN MODAL / OVERLAY (Admin & User) -->
+  <!-- ========================================== -->
+  <div id="login-view" class="fixed inset-0 z-50 bg-slate-950 flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-8 shadow-2xl space-y-6 relative overflow-hidden">
+      <!-- Glow Effect -->
+      <div class="absolute -top-24 -right-24 w-48 h-48 bg-blue-600/20 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-indigo-600/20 rounded-full blur-3xl"></div>
+
+      <div class="text-center relative z-10">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 flex items-center justify-center font-black text-2xl text-white shadow-xl shadow-blue-500/30 mb-4">
           R
         </div>
-        <div class="min-w-0">
-          <span class="font-extrabold text-base tracking-tight bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent truncate block">RelateIQ</span>
-          <span class="block text-[10px] text-slate-500 uppercase tracking-widest font-semibold truncate">Enterprise CRM</span>
+        <h1 class="text-2xl font-black tracking-tight bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400 bg-clip-text text-transparent">RelateIQ CRM</h1>
+        <p class="text-xs text-slate-400 mt-1">Enterprise Client Relationship Management Platform</p>
+      </div>
+
+      <div class="space-y-4 relative z-10">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Select Persona to Sign In</label>
+          <div class="grid grid-cols-2 gap-3">
+            <button type="button" onclick="selectPersona('admin')" id="persona-admin-btn" class="p-3.5 bg-blue-600/20 border-2 border-blue-500 rounded-2xl text-left transition">
+              <span class="block text-xs font-bold text-blue-400">Admin Account</span>
+              <span class="block text-[11px] text-slate-300 font-semibold mt-0.5">Alexander Pierce</span>
+              <span class="block text-[10px] text-slate-500">Chief Revenue Officer</span>
+            </button>
+            <button type="button" onclick="selectPersona('user')" id="persona-user-btn" class="p-3.5 bg-slate-950 border border-slate-800 rounded-2xl text-left transition hover:border-slate-700">
+              <span class="block text-xs font-bold text-slate-400">User Account</span>
+              <span class="block text-[11px] text-slate-300 font-semibold mt-0.5">Sarah Connor</span>
+              <span class="block text-[10px] text-slate-500">Senior Enterprise AE</span>
+            </button>
+          </div>
         </div>
-      </div>
 
-      <!-- Collapsed Brand Header (Hidden by default) -->
-      <div id="brand-collapsed" class="hidden w-full flex flex-col items-center gap-2">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 flex items-center justify-center font-black text-white shadow-lg shadow-blue-500/25">
-          R
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Tenant Workgroup</label>
+          <input type="text" value="Acme Global Enterprises (tenant-acme-corp)" readonly class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-400 focus:outline-none" />
         </div>
-      </div>
 
-      <!-- Toggle Button (Collapse / Expand Arrow) -->
-      <button id="sidebar-toggle-btn" onclick="toggleSidebar()" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/80 transition flex-shrink-0" title="Collapse sidebar">
-        <!-- Chevron Left Icon (when expanded) -->
-        <svg id="icon-chevron-left" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-        </svg>
-        <!-- Chevron Right Icon (when collapsed) -->
-        <svg id="icon-chevron-right" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-    </div>
-
-    <!-- Navigation Items -->
-    <nav class="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto custom-scrollbar">
-      <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition bg-blue-600 text-white shadow-lg shadow-blue-600/30" title="Executive Cockpit">
-        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
-        <span class="nav-label truncate">Executive Cockpit</span>
-      </button>
-
-      <button onclick="switchTab('deals')" id="nav-deals" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Deals Kanban">
-        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>
-        <span class="nav-label truncate">Deals Kanban</span>
-      </button>
-
-      <button onclick="switchTab('leads')" id="nav-leads" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Lead Intelligence">
-        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-        <span class="nav-label truncate">Lead Intelligence</span>
-      </button>
-
-      <button onclick="switchTab('accounts')" id="nav-accounts" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Accounts & 360">
-        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-        <span class="nav-label truncate">Accounts & 360</span>
-      </button>
-
-      <button onclick="switchTab('contacts')" id="nav-contacts" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Contact Registry">
-        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-        <span class="nav-label truncate">Contact Registry</span>
-      </button>
-
-      <button onclick="switchTab('activities')" id="nav-activities" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Tasks & Meetings">
-        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-        <span class="nav-label truncate">Tasks & Meetings</span>
-      </button>
-
-      <button onclick="switchTab('support')" id="nav-support" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Help Desk & SLA">
-        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-        <span class="nav-label truncate">Help Desk & SLA</span>
-      </button>
-
-      <button onclick="switchTab('workflows')" id="nav-workflows" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Workflow Engine">
-        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-        <span class="nav-label truncate">Workflow Engine</span>
-      </button>
-    </nav>
-
-    <!-- Sidebar Footer -->
-    <div class="p-4 border-t border-slate-800/80 text-xs text-slate-500 flex items-center justify-between overflow-hidden">
-      <div id="footer-expanded" class="flex items-center justify-between w-full">
-        <span class="inline-flex items-center gap-1.5">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          API Connected (:5000)
-        </span>
-        <span class="font-mono text-[10px]">v1.0.0</span>
-      </div>
-      <div id="footer-collapsed" class="hidden w-full flex justify-center">
-        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" title="API Connected"></span>
-      </div>
-    </div>
-  </aside>
-
-  <!-- Main Workspace -->
-  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
-    <!-- Topbar -->
-    <header class="h-16 bg-slate-950 border-b border-slate-800 flex items-center justify-between px-6 flex-shrink-0">
-      <div class="flex items-center gap-3">
-        <h2 id="view-title" class="text-lg font-bold text-slate-100">Executive Sales & Revenue Cockpit</h2>
-        <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-          Acme Global Enterprises
-        </span>
-      </div>
-
-      <div class="flex items-center gap-4">
-        <div class="relative">
-          <input type="text" id="global-search" placeholder="Search deals, leads, accounts..." class="w-64 bg-slate-900 border border-slate-800 rounded-lg px-3.5 py-1.5 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500" />
-        </div>
-        <button onclick="openModal('newLeadModal')" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow-lg shadow-blue-500/20 transition flex items-center gap-1.5">
-          <span>+</span> Ingest Lead
+        <button onclick="handleLogin()" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl text-sm font-bold shadow-lg shadow-blue-600/30 transition transform hover:-translate-y-0.5">
+          Enter RelateIQ Platform ➔
         </button>
-        <div class="flex items-center gap-3 border-l border-slate-800 pl-4">
-          <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-xs text-white">AP</div>
-          <div class="text-xs hidden md:block">
-            <p class="font-semibold text-slate-200">Alexander Pierce</p>
-            <p class="text-slate-500">Chief Revenue Officer</p>
-          </div>
+
+        <div class="pt-2 text-center text-[11px] text-slate-500 flex items-center justify-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span>AES-256-GCM Encrypted & SOC2 Ready</span>
         </div>
       </div>
-    </header>
-
-    <!-- Main Dynamic Content Views -->
-    <main class="flex-1 overflow-y-auto p-6 bg-slate-900/40 custom-scrollbar" id="main-content">
-      
-      <!-- 1. DASHBOARD VIEW -->
-      <div id="tab-dashboard" class="space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl">
-            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Pipeline</p>
-            <h3 class="text-2xl font-bold text-slate-100 mt-2">$1,300,000</h3>
-            <p class="text-xs text-emerald-400 mt-2 flex items-center gap-1">↑ +18.4% vs last quarter</p>
-          </div>
-          <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl">
-            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Weighted Forecast</p>
-            <h3 class="text-2xl font-bold text-slate-100 mt-2">$1,010,000</h3>
-            <p class="text-xs text-emerald-400 mt-2">78% win probability confidence</p>
-          </div>
-          <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl">
-            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Sales Velocity</p>
-            <h3 class="text-2xl font-bold text-slate-100 mt-2">$31,400 / day</h3>
-            <p class="text-xs text-blue-400 mt-2">Avg 24 days cycle</p>
-          </div>
-          <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl">
-            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Support SLA Uptime</p>
-            <h3 class="text-2xl font-bold text-slate-100 mt-2">99.4%</h3>
-            <p class="text-xs text-emerald-400 mt-2">0 active critical breaches</p>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div class="lg:col-span-2 bg-slate-950 border border-slate-800 rounded-2xl p-6">
-            <h3 class="text-base font-semibold text-slate-200 mb-4">Pipeline Revenue by Stage</h3>
-            <div class="space-y-4">
-              <div>
-                <div class="flex justify-between text-xs font-medium text-slate-400 mb-1">
-                  <span>Discovery & Lead-In (4 deals)</span>
-                  <span>$120,000</span>
-                </div>
-                <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
-                  <div class="bg-blue-500 h-full rounded-full" style="width: 25%"></div>
-                </div>
-              </div>
-              <div>
-                <div class="flex justify-between text-xs font-medium text-slate-400 mb-1">
-                  <span>Proposal Sent (3 deals)</span>
-                  <span>$180,000</span>
-                </div>
-                <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
-                  <div class="bg-indigo-500 h-full rounded-full" style="width: 45%"></div>
-                </div>
-              </div>
-              <div>
-                <div class="flex justify-between text-xs font-medium text-slate-400 mb-1">
-                  <span>Contract Negotiation (2 deals)</span>
-                  <span>$340,000</span>
-                </div>
-                <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
-                  <div class="bg-purple-500 h-full rounded-full" style="width: 65%"></div>
-                </div>
-              </div>
-              <div>
-                <div class="flex justify-between text-xs font-medium text-slate-400 mb-1">
-                  <span>Closed Won (5 deals)</span>
-                  <span>$450,000</span>
-                </div>
-                <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
-                  <div class="bg-emerald-500 h-full rounded-full" style="width: 85%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6">
-            <h3 class="text-base font-semibold text-slate-200 mb-4">Upcoming Schedule & Tasks</h3>
-            <div class="space-y-3">
-              <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
-                <span class="text-xs font-semibold px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">MEETING</span>
-                <p class="text-xs font-semibold text-slate-200 mt-2">Executive Demo with TechFlow VP</p>
-                <p class="text-[11px] text-slate-500 mt-1">Today at 2:00 PM • Sarah Connor</p>
-              </div>
-              <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
-                <span class="text-xs font-semibold px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">TASK</span>
-                <p class="text-xs font-semibold text-slate-200 mt-2">Submit Master Services Agreement</p>
-                <p class="text-[11px] text-slate-500 mt-1">Due Tomorrow • Apex Logistics</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2. DEALS KANBAN VIEW -->
-      <div id="tab-deals" class="hidden space-y-6">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-xl font-bold text-slate-100">Enterprise Opportunity Pipeline</h3>
-            <p class="text-xs text-slate-400">Interactive Kanban stage progression and weighted revenue metrics</p>
-          </div>
-        </div>
-        <div class="flex gap-4 overflow-x-auto pb-4 custom-scrollbar" id="kanban-board"></div>
-      </div>
-
-      <!-- 3. LEADS VIEW -->
-      <div id="tab-leads" class="hidden space-y-6">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-xl font-bold text-slate-100">Lead Intelligence Registry</h3>
-            <p class="text-xs text-slate-400">Automated lead scoring, source attribution, and atomic conversions</p>
-          </div>
-        </div>
-        <div class="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
-          <table class="w-full text-left text-sm text-slate-300">
-            <thead class="bg-slate-900 text-xs uppercase text-slate-400 font-semibold border-b border-slate-800">
-              <tr>
-                <th class="px-6 py-4">Lead & Company</th>
-                <th class="px-6 py-4">Email</th>
-                <th class="px-6 py-4">Source</th>
-                <th class="px-6 py-4">AI Score</th>
-                <th class="px-6 py-4">Status</th>
-                <th class="px-6 py-4 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-800/60" id="leads-table-body"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- 4. ACCOUNTS VIEW -->
-      <div id="tab-accounts" class="hidden space-y-6">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-xl font-bold text-slate-100">Enterprise Accounts & Customer 360</h3>
-            <p class="text-xs text-slate-400">Parent-child account hierarchies, health scoring, and active pipeline ties</p>
-          </div>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="accounts-grid"></div>
-      </div>
-
-      <!-- 5. CONTACTS VIEW -->
-      <div id="tab-contacts" class="hidden space-y-6">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-xl font-bold text-slate-100">Contact Registry</h3>
-            <p class="text-xs text-slate-400">Decision makers and key stakeholders</p>
-          </div>
-        </div>
-        <div class="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
-          <table class="w-full text-left text-sm text-slate-300">
-            <thead class="bg-slate-900 text-xs uppercase text-slate-400 font-semibold border-b border-slate-800">
-              <tr>
-                <th class="px-6 py-4">Contact Name</th>
-                <th class="px-6 py-4">Associated Account</th>
-                <th class="px-6 py-4">Title</th>
-                <th class="px-6 py-4">Email</th>
-                <th class="px-6 py-4">Phone</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-800/60" id="contacts-table-body"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- 6. ACTIVITIES VIEW -->
-      <div id="tab-activities" class="hidden space-y-6">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-xl font-bold text-slate-100">Tasks & Meetings Planner</h3>
-            <p class="text-xs text-slate-400">Omnichannel communication and scheduled tasks</p>
-          </div>
-        </div>
-        <div class="space-y-3" id="activities-list"></div>
-      </div>
-
-      <!-- 7. SUPPORT VIEW -->
-      <div id="tab-support" class="hidden space-y-6">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-xl font-bold text-slate-100">Help Desk & SLA Desk</h3>
-            <p class="text-xs text-slate-400">Omnichannel cases and automated SLA timers</p>
-          </div>
-        </div>
-        <div class="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
-          <table class="w-full text-left text-sm text-slate-300">
-            <thead class="bg-slate-900 text-xs uppercase text-slate-400 font-semibold border-b border-slate-800">
-              <tr>
-                <th class="px-6 py-4">Ticket # & Subject</th>
-                <th class="px-6 py-4">Account</th>
-                <th class="px-6 py-4">Priority</th>
-                <th class="px-6 py-4">Status</th>
-                <th class="px-6 py-4">SLA Countdown</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-800/60" id="tickets-table-body"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- 8. WORKFLOWS VIEW -->
-      <div id="tab-workflows" class="hidden space-y-6">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-xl font-bold text-slate-100">Workflow Automation Engine</h3>
-            <p class="text-xs text-slate-400">Trigger-Condition-Action automation matrix</p>
-          </div>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="workflows-grid"></div>
-      </div>
-
-    </main>
+    </div>
   </div>
+
+  <!-- ========================================== -->
+  <!-- MAIN APP SHELL (Sidebar + Topbar + Views) -->
+  <!-- ========================================== -->
+  <div id="app-shell" class="hidden flex w-full h-full overflow-hidden">
+    
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-slate-950 border-r border-slate-800 flex flex-col flex-shrink-0 transition-all duration-300">
+      
+      <!-- Sidebar Header -->
+      <div class="h-16 flex items-center justify-between px-4 border-b border-slate-800">
+        <div id="brand-expanded" class="flex items-center gap-3 min-w-0">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 flex items-center justify-center font-black text-white shadow-lg shadow-blue-500/25 flex-shrink-0">
+            R
+          </div>
+          <div class="min-w-0">
+            <span class="font-extrabold text-base tracking-tight bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent truncate block">RelateIQ</span>
+            <span class="block text-[10px] text-slate-500 uppercase tracking-widest font-semibold truncate">Enterprise CRM</span>
+          </div>
+        </div>
+
+        <div id="brand-collapsed" class="hidden w-full flex flex-col items-center">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 flex items-center justify-center font-black text-white shadow-lg shadow-blue-500/25">
+            R
+          </div>
+        </div>
+
+        <button id="sidebar-toggle-btn" onclick="toggleSidebar()" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/80 transition flex-shrink-0" title="Collapse sidebar">
+          <svg id="icon-chevron-left" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+          <svg id="icon-chevron-right" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+        </button>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto custom-scrollbar">
+        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition bg-blue-600 text-white shadow-lg shadow-blue-600/30" title="Executive Cockpit">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+          <span class="nav-label truncate">Executive Cockpit</span>
+        </button>
+
+        <button onclick="switchTab('leads')" id="nav-leads" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Leads Intelligence">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <span class="nav-label truncate">Leads Intelligence</span>
+        </button>
+
+        <button onclick="switchTab('accounts')" id="nav-accounts" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Accounts & 360">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          <span class="nav-label truncate">Accounts & 360</span>
+        </button>
+
+        <button onclick="switchTab('contacts')" id="nav-contacts" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Contact Registry">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          <span class="nav-label truncate">Contact Registry</span>
+        </button>
+
+        <button onclick="switchTab('deals')" id="nav-deals" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Deals / Pipeline Kanban">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>
+          <span class="nav-label truncate">Deals Pipeline Kanban</span>
+        </button>
+
+        <button onclick="switchTab('activities')" id="nav-activities" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Tasks & Meetings">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span class="nav-label truncate">Tasks & Meetings</span>
+        </button>
+
+        <button onclick="switchTab('history')" id="nav-history" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Activity History">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          <span class="nav-label truncate">Relationship History</span>
+        </button>
+
+        <button onclick="switchTab('support')" id="nav-support" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Help Desk & SLA">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          <span class="nav-label truncate">Help Desk & SLA</span>
+        </button>
+
+        <button onclick="switchTab('analytics')" id="nav-analytics" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Reports / Analytics">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          <span class="nav-label truncate">Reports & Analytics</span>
+        </button>
+      </nav>
+
+      <!-- Sidebar Footer -->
+      <div class="p-4 border-t border-slate-800/80 text-xs text-slate-500 flex items-center justify-between">
+        <div id="footer-expanded" class="flex items-center justify-between w-full">
+          <span class="inline-flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            API Connected (:5000)
+          </span>
+          <button onclick="handleLogout()" class="text-rose-400 hover:text-rose-300 font-semibold text-[11px]">Logout</button>
+        </div>
+        <div id="footer-collapsed" class="hidden w-full flex justify-center">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" title="API Connected"></span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Workspace Area -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <!-- Topbar -->
+      <header class="h-16 bg-slate-950 border-b border-slate-800 flex items-center justify-between px-6 flex-shrink-0">
+        <div class="flex items-center gap-3">
+          <h2 id="view-title" class="text-lg font-bold text-slate-100">Executive Sales & Revenue Cockpit</h2>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            Acme Global Enterprises
+          </span>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <div class="relative">
+            <input type="text" id="global-search" oninput="handleGlobalSearch(this.value)" placeholder="Search across CRM..." class="w-64 bg-slate-900 border border-slate-800 rounded-lg px-3.5 py-1.5 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+          </div>
+
+          <!-- Quick Actions Dropdown Button -->
+          <button onclick="openModal('newLeadModal')" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow-lg shadow-blue-500/20 transition flex items-center gap-1.5">
+            <span>+</span> Ingest Lead
+          </button>
+
+          <!-- Current User Profile Profile Header -->
+          <div class="flex items-center gap-3 border-l border-slate-800 pl-4">
+            <div id="user-avatar" class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-xs text-white">AP</div>
+            <div class="text-xs hidden md:block">
+              <p id="user-name" class="font-semibold text-slate-200">Alexander Pierce</p>
+              <p id="user-title" class="text-slate-500">Chief Revenue Officer</p>
+            </div>
+            <button onclick="handleLogout()" class="p-1 text-slate-400 hover:text-rose-400 ml-1" title="Sign out">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Dynamic Page Container -->
+      <main class="flex-1 overflow-y-auto p-6 bg-slate-900/40 custom-scrollbar" id="main-content">
+        
+        <!-- 1. DASHBOARD VIEW -->
+        <div id="tab-dashboard" class="space-y-6">
+          <!-- Flow Diagram Visual Badge -->
+          <div class="bg-gradient-to-r from-blue-950/40 via-indigo-950/30 to-purple-950/40 border border-blue-900/40 p-4 rounded-2xl flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-sm font-bold text-white">⚡</span>
+              <div>
+                <h4 class="text-xs font-bold text-blue-200">End-to-End Enterprise CRM Pipeline Connected</h4>
+                <p class="text-[11px] text-slate-400 mt-0.5">Leads ➔ 1-Click Conversion ➔ Customer 360 ➔ Deals Kanban ➔ SLA Support ➔ Revenue BI</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="switchTab('leads')" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold shadow transition">View Leads ➔</button>
+              <button onclick="switchTab('deals')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-semibold transition">View Kanban ➔</button>
+            </div>
+          </div>
+
+          <!-- Top Metrics Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl hover:border-slate-700 transition">
+              <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Pipeline</p>
+              <h3 id="metric-pipeline" class="text-2xl font-bold text-slate-100 mt-2">$1,300,000</h3>
+              <p class="text-xs text-emerald-400 mt-2 flex items-center gap-1">↑ +18.4% vs last quarter</p>
+            </div>
+            <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl hover:border-slate-700 transition">
+              <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Weighted Forecast</p>
+              <h3 id="metric-forecast" class="text-2xl font-bold text-slate-100 mt-2">$1,010,000</h3>
+              <p class="text-xs text-emerald-400 mt-2">78% win probability confidence</p>
+            </div>
+            <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl hover:border-slate-700 transition">
+              <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Sales Velocity</p>
+              <h3 class="text-2xl font-bold text-slate-100 mt-2">$31,400 / day</h3>
+              <p class="text-xs text-blue-400 mt-2">Avg 24 days cycle</p>
+            </div>
+            <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl hover:border-slate-700 transition">
+              <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Support SLA Uptime</p>
+              <h3 class="text-2xl font-bold text-slate-100 mt-2">99.4%</h3>
+              <p class="text-xs text-emerald-400 mt-2">0 active critical breaches</p>
+            </div>
+          </div>
+
+          <!-- Charts and Schedule Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 bg-slate-950 border border-slate-800 rounded-2xl p-6">
+              <div class="flex justify-between items-center mb-4">
+                <h3 class="text-base font-semibold text-slate-200">Pipeline Revenue by Stage</h3>
+                <span class="text-xs text-slate-400 font-mono">Live Sync</span>
+              </div>
+              <div class="space-y-4">
+                <div>
+                  <div class="flex justify-between text-xs font-medium text-slate-400 mb-1">
+                    <span>Discovery & Lead-In</span>
+                    <span id="stage-val-1">$120,000</span>
+                  </div>
+                  <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                    <div class="bg-blue-500 h-full rounded-full" style="width: 30%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs font-medium text-slate-400 mb-1">
+                    <span>Proposal Sent</span>
+                    <span id="stage-val-2">$180,000</span>
+                  </div>
+                  <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                    <div class="bg-indigo-500 h-full rounded-full" style="width: 45%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs font-medium text-slate-400 mb-1">
+                    <span>Contract Negotiation</span>
+                    <span id="stage-val-3">$340,000</span>
+                  </div>
+                  <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                    <div class="bg-purple-500 h-full rounded-full" style="width: 65%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs font-medium text-slate-400 mb-1">
+                    <span>Closed Won</span>
+                    <span id="stage-val-4">$450,000</span>
+                  </div>
+                  <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                    <div class="bg-emerald-500 h-full rounded-full" style="width: 85%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6">
+              <div class="flex justify-between items-center mb-4">
+                <h3 class="text-base font-semibold text-slate-200">Upcoming Tasks & Schedule</h3>
+                <button onclick="switchTab('activities')" class="text-blue-400 text-xs hover:underline">View All</button>
+              </div>
+              <div class="space-y-3" id="dashboard-schedule-feed"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. LEADS INTELLIGENCE VIEW -->
+        <div id="tab-leads" class="hidden space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-slate-100">Leads Intelligence Registry</h3>
+              <p class="text-xs text-slate-400">Algorithmic scoring, source attribution, and 1-Click Atomic Conversion</p>
+            </div>
+            <button onclick="openModal('newLeadModal')" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow-lg shadow-blue-500/20 transition">+ Ingest New Lead</button>
+          </div>
+
+          <div class="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+            <table class="w-full text-left text-sm text-slate-300">
+              <thead class="bg-slate-900 text-xs uppercase text-slate-400 font-semibold border-b border-slate-800">
+                <tr>
+                  <th class="px-6 py-4">Lead & Organization</th>
+                  <th class="px-6 py-4">Work Email</th>
+                  <th class="px-6 py-4">Acquisition Source</th>
+                  <th class="px-6 py-4">AI Score</th>
+                  <th class="px-6 py-4">Lead Status</th>
+                  <th class="px-6 py-4 text-right">Convert / Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/60" id="leads-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 3. ACCOUNTS & 360 VIEW -->
+        <div id="tab-accounts" class="hidden space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-slate-100">Enterprise Accounts & Customer 360</h3>
+              <p class="text-xs text-slate-400">Parent-child account hierarchies, health scoring, and active pipeline revenue</p>
+            </div>
+            <button onclick="openModal('newAccountModal')" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow-lg shadow-blue-500/20 transition">+ Add Account</button>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="accounts-grid"></div>
+        </div>
+
+        <!-- 4. CONTACT REGISTRY VIEW -->
+        <div id="tab-contacts" class="hidden space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-slate-100">Contact Registry & Key Stakeholders</h3>
+              <p class="text-xs text-slate-400">Direct contacts mapped across accounts with title and communication channels</p>
+            </div>
+            <button onclick="openModal('newContactModal')" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow-lg shadow-blue-500/20 transition">+ Add Contact</button>
+          </div>
+          <div class="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+            <table class="w-full text-left text-sm text-slate-300">
+              <thead class="bg-slate-900 text-xs uppercase text-slate-400 font-semibold border-b border-slate-800">
+                <tr>
+                  <th class="px-6 py-4">Stakeholder Name</th>
+                  <th class="px-6 py-4">Associated Account</th>
+                  <th class="px-6 py-4">Job Title</th>
+                  <th class="px-6 py-4">Email</th>
+                  <th class="px-6 py-4">Direct Phone</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/60" id="contacts-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 5. DEALS KANBAN & SALES PIPELINE VIEW -->
+        <div id="tab-deals" class="hidden space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-slate-100">Enterprise Opportunities & Sales Pipeline</h3>
+              <p class="text-xs text-slate-400">Discovery ➔ Proposal ➔ Negotiation ➔ Closed Won/Lost with stage probability math</p>
+            </div>
+            <button onclick="openModal('newDealModal')" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow-lg shadow-blue-500/20 transition">+ New Opportunity</button>
+          </div>
+          <div class="flex gap-4 overflow-x-auto pb-4 custom-scrollbar" id="kanban-board"></div>
+        </div>
+
+        <!-- 6. TASKS & MEETINGS VIEW -->
+        <div id="tab-activities" class="hidden space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-slate-100">Tasks, Meetings & Follow-ups</h3>
+              <p class="text-xs text-slate-400">Follow-up reminders, executive meetings, and rep assignments</p>
+            </div>
+            <button onclick="openModal('newActivityModal')" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow-lg shadow-blue-500/20 transition">+ Schedule Activity</button>
+          </div>
+          <div class="space-y-3" id="activities-list"></div>
+        </div>
+
+        <!-- 7. RELATIONSHIP & ACTIVITY HISTORY VIEW -->
+        <div id="tab-history" class="hidden space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-slate-100">Customer Relationship & Activity History</h3>
+              <p class="text-xs text-slate-400">Chronological touchpoint audit trail, logged emails, contracts, and stage changes</p>
+            </div>
+          </div>
+          <div class="space-y-4" id="history-timeline"></div>
+        </div>
+
+        <!-- 8. HELP DESK & SLA VIEW -->
+        <div id="tab-support" class="hidden space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-slate-100">Help Desk & SLA Desk</h3>
+              <p class="text-xs text-slate-400">Omnichannel support cases, real-time SLA countdowns, and breach escalation</p>
+            </div>
+            <button onclick="openModal('newTicketModal')" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow-lg shadow-blue-500/20 transition">+ Open Ticket</button>
+          </div>
+          <div class="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+            <table class="w-full text-left text-sm text-slate-300">
+              <thead class="bg-slate-900 text-xs uppercase text-slate-400 font-semibold border-b border-slate-800">
+                <tr>
+                  <th class="px-6 py-4">Ticket # & Subject</th>
+                  <th class="px-6 py-4">Client Account</th>
+                  <th class="px-6 py-4">Priority</th>
+                  <th class="px-6 py-4">Status</th>
+                  <th class="px-6 py-4">SLA Clock</th>
+                  <th class="px-6 py-4 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/60" id="tickets-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 9. REPORTS / ANALYTICS VIEW -->
+        <div id="tab-analytics" class="hidden space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-slate-100">Revenue & Sales Velocity Analytics</h3>
+              <p class="text-xs text-slate-400">Performance telemetry, win-rate cohorts, and quarterly quota forecasting</p>
+            </div>
+            <button onclick="switchTab('dashboard')" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-semibold transition">Back to Cockpit ➔</button>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-slate-950 border border-slate-800 p-6 rounded-2xl">
+              <h4 class="text-sm font-semibold text-slate-300">Sales Velocity Equation</h4>
+              <div class="mt-3 p-3 rounded-xl bg-slate-900 font-mono text-xs text-blue-400 border border-slate-800">
+                V = (O × A × W) / L
+              </div>
+              <p class="text-xs text-slate-400 mt-3 leading-relaxed">
+                • Opportunities (O): <span class="font-bold text-slate-200">5 Deals</span><br>
+                • Avg Size (A): <span class="font-bold text-slate-200">$260,000</span><br>
+                • Win Rate (W): <span class="font-bold text-slate-200">72%</span><br>
+                • Cycle Length (L): <span class="font-bold text-slate-200">30 Days</span>
+              </p>
+              <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-xs">
+                <span class="text-slate-400">Velocity Pacing:</span>
+                <span class="font-bold text-emerald-400 text-sm">$31,400 / day</span>
+              </div>
+            </div>
+
+            <div class="bg-slate-950 border border-slate-800 p-6 rounded-2xl">
+              <h4 class="text-sm font-semibold text-slate-300">Lead Conversion Matrix</h4>
+              <div class="mt-4 space-y-2 text-xs">
+                <div class="flex justify-between text-slate-400">
+                  <span>Referrals</span>
+                  <span class="font-bold text-emerald-400">84% Win Rate</span>
+                </div>
+                <div class="flex justify-between text-slate-400">
+                  <span>Organic Search</span>
+                  <span class="font-bold text-blue-400">62% Win Rate</span>
+                </div>
+                <div class="flex justify-between text-slate-400">
+                  <span>Conference Inbound</span>
+                  <span class="font-bold text-indigo-400">75% Win Rate</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-slate-950 border border-slate-800 p-6 rounded-2xl">
+              <h4 class="text-sm font-semibold text-slate-300">Support Resolution Telemetry</h4>
+              <div class="mt-4 space-y-2 text-xs">
+                <div class="flex justify-between text-slate-400">
+                  <span>First Contact Resolution</span>
+                  <span class="font-bold text-emerald-400">92.4%</span>
+                </div>
+                <div class="flex justify-between text-slate-400">
+                  <span>Mean Time to Respond</span>
+                  <span class="font-bold text-blue-400">14 minutes</span>
+                </div>
+                <div class="flex justify-between text-slate-400">
+                  <span>Customer CSAT Rating</span>
+                  <span class="font-bold text-amber-400">4.9 / 5.0 ★</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODALS (Ingest Lead, New Deal, Account, Activity, Ticket) -->
+  <!-- ========================================== -->
 
   <!-- Ingest Lead Modal -->
   <div id="newLeadModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
@@ -372,28 +521,254 @@
           <label class="block font-semibold text-slate-400 mb-1">Work Email *</label>
           <input type="email" id="lead-form-email" required placeholder="sam@openai.com" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200" />
         </div>
+        <div>
+          <label class="block font-semibold text-slate-400 mb-1">Estimated Deal Value ($)</label>
+          <input type="number" id="lead-form-val" value="180000" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200" />
+        </div>
         <div class="flex justify-end gap-3 pt-3 border-t border-slate-800">
           <button type="button" onclick="closeModal('newLeadModal')" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-lg">Cancel</button>
-          <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold">Ingest & Score Lead</button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold">Ingest & Calculate AI Score</button>
         </div>
       </form>
     </div>
   </div>
 
-  <script>
-    let appState = { leads: [], deals: [], accounts: [], contacts: [], activities: [], tickets: [], workflows: [] };
-    let isSidebarCollapsed = false;
+  <!-- Create Opportunity Modal -->
+  <div id="newDealModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center pb-3 border-b border-slate-800">
+        <h3 class="text-base font-bold text-slate-100">Create New Opportunity</h3>
+        <button onclick="closeModal('newDealModal')" class="text-slate-400 hover:text-white text-lg">&times;</button>
+      </div>
+      <form onsubmit="submitNewDeal(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-400 mb-1">Opportunity Title *</label>
+          <input type="text" id="deal-form-title" required placeholder="e.g. Enterprise Security Architecture" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200" />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-400 mb-1">Target Account *</label>
+          <input type="text" id="deal-form-account" required placeholder="e.g. TechFlow Solutions Inc." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-400 mb-1">Deal Amount ($) *</label>
+            <input type="number" id="deal-form-amount" required value="240000" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-400 mb-1">Sales Stage</label>
+            <select id="deal-form-stage" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200">
+              <option value="lead-in">Discovery & Lead-In</option>
+              <option value="proposal-sent">Proposal Sent</option>
+              <option value="negotiation">Contract Negotiation</option>
+              <option value="won">Closed Won</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex justify-end gap-3 pt-3 border-t border-slate-800">
+          <button type="button" onclick="closeModal('newDealModal')" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-lg">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-semibold">Create Opportunity</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
+  <!-- Create Account Modal -->
+  <div id="newAccountModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center pb-3 border-b border-slate-800">
+        <h3 class="text-base font-bold text-slate-100">Add Enterprise Account</h3>
+        <button onclick="closeModal('newAccountModal')" class="text-slate-400 hover:text-white text-lg">&times;</button>
+      </div>
+      <form onsubmit="submitNewAccount(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-400 mb-1">Account / Company Name *</label>
+          <input type="text" id="acc-form-name" required placeholder="e.g. Acme Corp" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-400 mb-1">City / Region</label>
+            <input type="text" id="acc-form-city" value="San Francisco, CA" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-400 mb-1">Annual Revenue ($)</label>
+            <input type="number" id="acc-form-rev" value="50000000" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200" />
+          </div>
+        </div>
+        <div class="flex justify-end gap-3 pt-3 border-t border-slate-800">
+          <button type="button" onclick="closeModal('newAccountModal')" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-lg">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold">Save Account</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Create Contact Modal -->
+  <div id="newContactModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center pb-3 border-b border-slate-800">
+        <h3 class="text-base font-bold text-slate-100">Add Key Contact</h3>
+        <button onclick="closeModal('newContactModal')" class="text-slate-400 hover:text-white text-lg">&times;</button>
+      </div>
+      <form onsubmit="submitNewContact(event)" class="space-y-3 text-xs">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-400 mb-1">First Name *</label>
+            <input type="text" id="con-form-fname" required placeholder="Elena" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-400 mb-1">Last Name *</label>
+            <input type="text" id="con-form-lname" required placeholder="Rostova" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200" />
+          </div>
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-400 mb-1">Associated Account *</label>
+          <input type="text" id="con-form-acc" required placeholder="TechFlow Solutions Inc." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200" />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-400 mb-1">Job Title *</label>
+          <input type="text" id="con-form-title" required placeholder="VP of Technology" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200" />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-400 mb-1">Email *</label>
+          <input type="email" id="con-form-email" required placeholder="elena@techflow.io" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200" />
+        </div>
+        <div class="flex justify-end gap-3 pt-3 border-t border-slate-800">
+          <button type="button" onclick="closeModal('newContactModal')" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-lg">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold">Save Contact</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Create Activity Modal -->
+  <div id="newActivityModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center pb-3 border-b border-slate-800">
+        <h3 class="text-base font-bold text-slate-100">Schedule Task / Meeting</h3>
+        <button onclick="closeModal('newActivityModal')" class="text-slate-400 hover:text-white text-lg">&times;</button>
+      </div>
+      <form onsubmit="submitNewActivity(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-400 mb-1">Activity Type</label>
+          <select id="act-form-type" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200">
+            <option value="MEETING">Meeting</option>
+            <option value="TASK">Task / Follow-up</option>
+            <option value="CALL">Phone Call</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-400 mb-1">Subject *</label>
+          <input type="text" id="act-form-subject" required placeholder="e.g. Product Demo with VP" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200" />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-400 mb-1">Due Time / Date</label>
+          <input type="text" id="act-form-time" value="Today at 4:30 PM" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200" />
+        </div>
+        <div class="flex justify-end gap-3 pt-3 border-t border-slate-800">
+          <button type="button" onclick="closeModal('newActivityModal')" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-lg">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold">Save Activity</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Create Support Ticket Modal -->
+  <div id="newTicketModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center pb-3 border-b border-slate-800">
+        <h3 class="text-base font-bold text-slate-100">Open Support Ticket</h3>
+        <button onclick="closeModal('newTicketModal')" class="text-slate-400 hover:text-white text-lg">&times;</button>
+      </div>
+      <form onsubmit="submitNewTicket(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-400 mb-1">Client Account *</label>
+          <input type="text" id="tick-form-customer" required placeholder="e.g. Apex Global Logistics" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200" />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-400 mb-1">Issue Subject *</label>
+          <input type="text" id="tick-form-subject" required placeholder="e.g. API Integration Sync Delay" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200" />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-400 mb-1">Priority</label>
+          <select id="tick-form-priority" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200">
+            <option value="HIGH">High</option>
+            <option value="CRITICAL">Critical (1h SLA)</option>
+            <option value="MEDIUM">Medium</option>
+          </select>
+        </div>
+        <div class="flex justify-end gap-3 pt-3 border-t border-slate-800">
+          <button type="button" onclick="closeModal('newTicketModal')" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-lg">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold">Submit Ticket</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JavaScript Controller -->
+  <script>
+    // App State
+    let currentPersona = 'admin';
+    let isSidebarCollapsed = false;
+    let appState = {
+      leads: [],
+      deals: [],
+      accounts: [],
+      contacts: [],
+      activities: [],
+      history: [
+        { id: 'h-1', time: '10 mins ago', type: 'LEAD_SCORED', title: 'AI Score Computed for Quantum Dynamics Lead', desc: 'Score assigned: 85/100 (Tier 1 Enterprise)', actor: 'AI Engine' },
+        { id: 'h-2', time: '1 hour ago', type: 'STAGE_PROGRESSED', title: 'Deal Progressed to Contract Negotiation', desc: 'Apex Logistics Support & Field Sync moved to Negotiation ($340,000)', actor: 'Sarah Connor' },
+        { id: 'h-3', time: '3 hours ago', type: 'MEETING_LOGGED', title: 'Executive Demo with TechFlow VP', desc: 'Demo concluded successfully with Positive feedback on Enterprise API', actor: 'Sarah Connor' },
+        { id: 'h-4', time: 'Yesterday', type: 'LEAD_CONVERTED', title: 'Inbound Lead Converted', desc: 'Strata Cloud converted into Account, Primary Contact & Opportunity', actor: 'Alexander Pierce' }
+      ],
+      tickets: []
+    };
+
+    // Persona Selection
+    function selectPersona(type) {
+      currentPersona = type;
+      const adminBtn = document.getElementById('persona-admin-btn');
+      const userBtn = document.getElementById('persona-user-btn');
+      if (type === 'admin') {
+        adminBtn.className = "p-3.5 bg-blue-600/20 border-2 border-blue-500 rounded-2xl text-left transition";
+        userBtn.className = "p-3.5 bg-slate-950 border border-slate-800 rounded-2xl text-left transition hover:border-slate-700";
+      } else {
+        userBtn.className = "p-3.5 bg-blue-600/20 border-2 border-blue-500 rounded-2xl text-left transition";
+        adminBtn.className = "p-3.5 bg-slate-950 border border-slate-800 rounded-2xl text-left transition hover:border-slate-700";
+      }
+    }
+
+    function handleLogin() {
+      document.getElementById('login-view').classList.add('hidden');
+      document.getElementById('app-shell').classList.remove('hidden');
+
+      if (currentPersona === 'admin') {
+        document.getElementById('user-avatar').innerText = 'AP';
+        document.getElementById('user-name').innerText = 'Alexander Pierce';
+        document.getElementById('user-title').innerText = 'Chief Revenue Officer';
+      } else {
+        document.getElementById('user-avatar').innerText = 'SC';
+        document.getElementById('user-name').innerText = 'Sarah Connor';
+        document.getElementById('user-title').innerText = 'Senior Enterprise AE';
+      }
+      initApp();
+    }
+
+    function handleLogout() {
+      document.getElementById('app-shell').classList.add('hidden');
+      document.getElementById('login-view').classList.remove('hidden');
+    }
+
+    // Data Sync
     async function initApp() {
       try {
-        const [leadsRes, dealsRes, accRes, conRes, actRes, tickRes, wfRes] = await Promise.all([
+        const [leadsRes, dealsRes, accRes, conRes, actRes, tickRes] = await Promise.all([
           fetch('/api/v1/leads').then(r => r.json()),
           fetch('/api/v1/deals').then(r => r.json()),
           fetch('/api/v1/accounts').then(r => r.json()),
           fetch('/api/v1/contacts').then(r => r.json()),
           fetch('/api/v1/activities').then(r => r.json()),
-          fetch('/api/v1/tickets').then(r => r.json()),
-          fetch('/api/v1/workflows').then(r => r.json())
+          fetch('/api/v1/tickets').then(r => r.json())
         ]);
         appState.leads = leadsRes.data || [];
         appState.deals = dealsRes.data || [];
@@ -401,44 +776,92 @@
         appState.contacts = conRes.data || [];
         appState.activities = actRes.data || [];
         appState.tickets = tickRes.data || [];
-        appState.workflows = wfRes.data || [];
         renderAll();
       } catch (e) {
-        console.error(e);
+        console.error('API sync error:', e);
       }
     }
 
     function renderAll() {
+      renderDashboard();
       renderLeads();
-      renderDeals();
       renderAccounts();
       renderContacts();
+      renderDeals();
       renderActivities();
+      renderHistory();
       renderTickets();
-      renderWorkflows();
+    }
+
+    function renderDashboard() {
+      const totalPipeline = appState.deals.reduce((sum, d) => sum + (d.amount || 0), 0);
+      const weightedForecast = appState.deals.reduce((sum, d) => sum + ((d.amount || 0) * ((d.prob || 50) / 100)), 0);
+      document.getElementById('metric-pipeline').innerText = '$' + totalPipeline.toLocaleString();
+      document.getElementById('metric-forecast').innerText = '$' + Math.round(weightedForecast).toLocaleString();
+
+      // Schedule feed
+      document.getElementById('dashboard-schedule-feed').innerHTML = appState.activities.slice(0, 3).map(act => `
+        <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+          <span class="text-xs font-semibold px-2 py-0.5 rounded ${act.type === 'MEETING' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'}">${act.type}</span>
+          <p class="text-xs font-semibold text-slate-200 mt-2">${act.subject}</p>
+          <p class="text-[11px] text-slate-500 mt-1">${act.time} • ${act.assignedTo}</p>
+        </div>
+      `).join('');
     }
 
     function renderLeads() {
       document.getElementById('leads-table-body').innerHTML = appState.leads.map(lead => `
         <tr class="hover:bg-slate-900/40 transition">
-          <td class="px-6 py-4 font-semibold text-slate-200">${lead.firstName} ${lead.lastName} <span class="block text-xs font-normal text-slate-500">${lead.company}</span></td>
+          <td class="px-6 py-4 font-semibold text-slate-200">
+            ${lead.firstName} ${lead.lastName}
+            <span class="block text-xs font-normal text-slate-500">${lead.company}</span>
+          </td>
           <td class="px-6 py-4 text-slate-400">${lead.email}</td>
-          <td class="px-6 py-4"><span class="px-2 py-0.5 rounded bg-slate-800 text-xs text-slate-300">${lead.source}</span></td>
+          <td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded bg-slate-800 text-xs text-slate-300">${lead.source}</span></td>
           <td class="px-6 py-4"><span class="px-2.5 py-1 rounded-full text-xs font-bold ${lead.score >= 80 ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-blue-500/10 text-blue-400 border border-blue-500/20'}">★ ${lead.score} / 100</span></td>
-          <td class="px-6 py-4"><span class="px-2 py-0.5 rounded text-xs ${lead.status === 'CONVERTED' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-indigo-500/10 text-indigo-400'} font-semibold">${lead.status}</span></td>
+          <td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded text-xs ${lead.status === 'CONVERTED' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-indigo-500/10 text-indigo-400'} font-semibold">${lead.status}</span></td>
           <td class="px-6 py-4 text-right">
             ${lead.status !== 'CONVERTED' 
-              ? `<button onclick="convertLead('${lead.id}')" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-md transition shadow">Convert ➔</button>`
-              : `<span class="text-xs text-emerald-400 font-semibold">Converted ✔</span>`
+              ? `<button onclick="convertLead('${lead.id}')" class="px-3.5 py-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold rounded-lg transition shadow-lg shadow-emerald-600/20">Convert ➔</button>`
+              : `<span class="text-xs text-emerald-400 font-semibold inline-flex items-center gap-1">Converted ✔</span>`
             }
           </td>
         </tr>
       `).join('');
     }
 
+    function renderAccounts() {
+      document.getElementById('accounts-grid').innerHTML = appState.accounts.map(acc => `
+        <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl hover:border-slate-700 transition">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-xs font-bold px-2 py-0.5 rounded ${acc.healthScore >= 85 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'}">Health: ${acc.healthScore}/100</span>
+            <span class="text-xs text-slate-500">${acc.city || 'HQ'}</span>
+          </div>
+          <h4 class="text-base font-bold text-slate-100">${acc.name}</h4>
+          <p class="text-xs text-slate-400 mt-1">$${(acc.annualRevenue || 0).toLocaleString()} annual revenue</p>
+          <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-xs">
+            <span class="text-slate-400">${acc.contactsCount || 1} Stakeholders</span>
+            <button onclick="alert('Customer 360 Profile for ' + '${acc.name}')" class="text-blue-400 hover:text-blue-300 font-semibold">View 360 ➔</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderContacts() {
+      document.getElementById('contacts-table-body').innerHTML = appState.contacts.map(c => `
+        <tr class="hover:bg-slate-900/40 transition">
+          <td class="px-6 py-4 font-semibold text-slate-200">${c.firstName} ${c.lastName}</td>
+          <td class="px-6 py-4 text-slate-400">${c.accountName}</td>
+          <td class="px-6 py-4"><span class="px-2 py-0.5 rounded bg-slate-800 text-xs text-slate-300 font-medium">${c.title}</span></td>
+          <td class="px-6 py-4 text-blue-400">${c.email}</td>
+          <td class="px-6 py-4 font-mono text-xs text-slate-400">${c.phone || '+1-555-0199'}</td>
+        </tr>
+      `).join('');
+    }
+
     function renderDeals() {
       const stages = [
-        { id: 'lead-in', name: 'Qualification' },
+        { id: 'lead-in', name: 'Discovery & Lead-In' },
         { id: 'contact-made', name: 'Contact Made' },
         { id: 'proposal-sent', name: 'Proposal Sent' },
         { id: 'negotiation', name: 'Negotiation' },
@@ -446,7 +869,7 @@
       ];
       document.getElementById('kanban-board').innerHTML = stages.map(stage => {
         const stageDeals = appState.deals.filter(d => d.stage === stage.id);
-        const stageTotal = stageDeals.reduce((sum, d) => sum + d.amount, 0);
+        const stageTotal = stageDeals.reduce((sum, d) => sum + (d.amount || 0), 0);
         return `
           <div class="w-80 flex-shrink-0 bg-slate-950 border border-slate-800 rounded-2xl p-4 flex flex-col">
             <div class="flex justify-between items-center mb-2 pb-2 border-b border-slate-800 font-semibold text-xs text-slate-300 uppercase">
@@ -460,8 +883,8 @@
                   <h5 class="text-sm font-semibold text-slate-200">${d.title}</h5>
                   <p class="text-xs text-slate-400 mt-1">${d.account}</p>
                   <div class="flex justify-between items-center mt-3 pt-3 border-t border-slate-800/80">
-                    <span class="text-sm font-bold text-emerald-400">$${d.amount.toLocaleString()}</span>
-                    <span class="text-xs px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 font-semibold">${d.prob}%</span>
+                    <span class="text-sm font-bold text-emerald-400">$${(d.amount || 0).toLocaleString()}</span>
+                    <span class="text-xs px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 font-semibold">${d.prob || 50}% prob</span>
                   </div>
                 </div>
               `).join('')}
@@ -471,42 +894,37 @@
       }).join('');
     }
 
-    function renderAccounts() {
-      document.getElementById('accounts-grid').innerHTML = appState.accounts.map(acc => `
-        <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl hover:border-slate-700 transition">
-          <div class="flex justify-between items-center mb-2">
-            <span class="text-xs font-bold px-2 py-0.5 rounded ${acc.healthScore >= 85 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'}">Health: ${acc.healthScore}/100</span>
-            <span class="text-xs text-slate-500">${acc.city}</span>
-          </div>
-          <h4 class="text-base font-bold text-slate-100">${acc.name}</h4>
-          <p class="text-xs text-slate-400 mt-1">$${(acc.annualRevenue || 0).toLocaleString()} revenue</p>
-        </div>
-      `).join('');
-    }
-
-    function renderContacts() {
-      document.getElementById('contacts-table-body').innerHTML = appState.contacts.map(c => `
-        <tr class="hover:bg-slate-900/40 transition">
-          <td class="px-6 py-4 font-semibold text-slate-200">${c.firstName} ${c.lastName}</td>
-          <td class="px-6 py-4 text-slate-400">${c.accountName}</td>
-          <td class="px-6 py-4"><span class="px-2 py-0.5 rounded bg-slate-800 text-xs text-slate-300 font-medium">${c.title}</span></td>
-          <td class="px-6 py-4 text-blue-400">${c.email}</td>
-          <td class="px-6 py-4 font-mono text-xs text-slate-400">${c.phone}</td>
-        </tr>
-      `).join('');
-    }
-
     function renderActivities() {
       document.getElementById('activities-list').innerHTML = appState.activities.map(act => `
-        <div class="p-4 bg-slate-950 border border-slate-800 rounded-2xl flex items-center justify-between">
+        <div class="p-4 bg-slate-950 border border-slate-800 rounded-2xl flex items-center justify-between hover:border-slate-700 transition">
           <div class="flex items-center gap-3">
-            <span class="px-2 py-0.5 rounded text-xs font-semibold ${act.type === 'MEETING' ? 'bg-blue-500/10 text-blue-400' : 'bg-amber-500/10 text-amber-400'} border border-slate-800">${act.type}</span>
+            <span class="px-2.5 py-1 rounded text-xs font-semibold ${act.type === 'MEETING' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'}">${act.type}</span>
             <div>
               <p class="text-sm font-semibold text-slate-200">${act.subject}</p>
               <p class="text-xs text-slate-500">${act.time} • Assigned to ${act.assignedTo}</p>
             </div>
           </div>
-          <span class="px-2.5 py-1 rounded text-xs font-semibold ${act.status === 'COMPLETED' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-slate-800 text-slate-300'}">${act.status}</span>
+          <button onclick="toggleActivityStatus('${act.id}')" class="px-3 py-1 rounded text-xs font-semibold ${act.status === 'COMPLETED' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-800 text-slate-300'}">
+            ${act.status}
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function renderHistory() {
+      document.getElementById('history-timeline').innerHTML = appState.history.map(h => `
+        <div class="p-4 bg-slate-950 border border-slate-800 rounded-2xl flex items-start gap-4 hover:border-slate-700 transition">
+          <div class="w-8 h-8 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 text-xs font-bold flex-shrink-0 mt-0.5">
+            ●
+          </div>
+          <div class="flex-1">
+            <div class="flex justify-between items-center">
+              <h5 class="text-sm font-semibold text-slate-200">${h.title}</h5>
+              <span class="text-xs text-slate-500">${h.time}</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">${h.desc}</p>
+            <span class="inline-block text-[10px] text-slate-500 mt-2 font-mono">Triggered by ${h.actor}</span>
+          </div>
         </div>
       `).join('');
     }
@@ -514,36 +932,37 @@
     function renderTickets() {
       document.getElementById('tickets-table-body').innerHTML = appState.tickets.map(t => `
         <tr class="hover:bg-slate-900/40 transition">
-          <td class="px-6 py-4 font-semibold text-slate-200"><span class="font-mono text-xs text-blue-400 block">#${t.id}</span> ${t.subject}</td>
+          <td class="px-6 py-4 font-semibold text-slate-200">
+            <span class="font-mono text-xs text-blue-400 block">#${t.id}</span>
+            ${t.subject}
+          </td>
           <td class="px-6 py-4 text-slate-400">${t.customer}</td>
-          <td class="px-6 py-4"><span class="px-2 py-0.5 rounded text-xs ${t.priority === 'CRITICAL' ? 'bg-red-500/10 text-red-400 border border-red-500/20' : 'bg-amber-500/10 text-amber-400'} font-bold">${t.priority}</span></td>
-          <td class="px-6 py-4"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-300 font-medium">${t.status}</span></td>
+          <td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded text-xs ${t.priority === 'CRITICAL' ? 'bg-red-500/10 text-red-400 border border-red-500/20' : 'bg-amber-500/10 text-amber-400'} font-bold">${t.priority}</span></td>
+          <td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded text-xs bg-slate-800 text-slate-300 font-medium">${t.status}</span></td>
           <td class="px-6 py-4 font-mono text-xs text-emerald-400">${t.sla}</td>
+          <td class="px-6 py-4 text-right">
+            <button onclick="resolveTicket('${t.id}')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded">Resolve</button>
+          </td>
         </tr>
       `).join('');
     }
 
-    function renderWorkflows() {
-      document.getElementById('workflows-grid').innerHTML = appState.workflows.map(wf => `
-        <div class="bg-slate-950 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between">
-          <div>
-            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">${wf.status}</span>
-            <h4 class="text-base font-bold text-slate-100 mt-2">${wf.name}</h4>
-            <div class="mt-4 space-y-2 text-xs">
-              <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800"><span class="text-blue-400 font-bold block mb-0.5">⚡ TRIGGER</span>${wf.trigger}</div>
-              <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800"><span class="text-indigo-400 font-bold block mb-0.5">🎯 ACTION</span>${wf.action}</div>
-            </div>
-          </div>
-        </div>
-      `).join('');
-    }
-
+    // Actions & Handlers
     async function convertLead(leadId) {
       const res = await fetch('/api/v1/leads/' + leadId + '/convert', { method: 'POST' });
       const json = await res.json();
       if (json.success) {
-        alert('Lead successfully converted into Account, Contact, and Opportunity Deal!');
+        appState.history.unshift({
+          id: 'h-' + Date.now(),
+          time: 'Just now',
+          type: 'LEAD_CONVERTED',
+          title: 'Lead Converted to Customer',
+          desc: `${json.data.lead.firstName} ${json.data.lead.lastName} converted into Account (${json.data.account.name}) & Opportunity (${json.data.deal.title})`,
+          actor: currentPersona === 'admin' ? 'Alexander Pierce' : 'Sarah Connor'
+        });
+        alert('🎉 Success: Lead successfully converted into Account + Contact + Opportunity Deal in Pipeline!');
         await initApp();
+        switchTab('deals');
       }
     }
 
@@ -553,7 +972,8 @@
         company: document.getElementById('lead-form-company').value,
         firstName: document.getElementById('lead-form-fname').value,
         lastName: document.getElementById('lead-form-lname').value,
-        email: document.getElementById('lead-form-email').value
+        email: document.getElementById('lead-form-email').value,
+        estimatedValue: Number(document.getElementById('lead-form-val').value) || 100000
       };
       const res = await fetch('/api/v1/leads', {
         method: 'POST',
@@ -566,8 +986,107 @@
       }
     }
 
+    async function submitNewDeal(e) {
+      e.preventDefault();
+      const payload = {
+        title: document.getElementById('deal-form-title').value,
+        account: document.getElementById('deal-form-account').value,
+        amount: Number(document.getElementById('deal-form-amount').value),
+        stage: document.getElementById('deal-form-stage').value
+      };
+      const res = await fetch('/api/v1/deals', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if ((await res.json()).success) {
+        closeModal('newDealModal');
+        await initApp();
+      }
+    }
+
+    async function submitNewAccount(e) {
+      e.preventDefault();
+      const newAcc = {
+        id: 'acc-' + (appState.accounts.length + 1),
+        name: document.getElementById('acc-form-name').value,
+        city: document.getElementById('acc-form-city').value,
+        annualRevenue: Number(document.getElementById('acc-form-rev').value),
+        healthScore: 88,
+        contactsCount: 1
+      };
+      appState.accounts.unshift(newAcc);
+      closeModal('newAccountModal');
+      renderAccounts();
+    }
+
+    async function submitNewContact(e) {
+      e.preventDefault();
+      const newCon = {
+        id: 'con-' + (appState.contacts.length + 1),
+        firstName: document.getElementById('con-form-fname').value,
+        lastName: document.getElementById('con-form-lname').value,
+        accountName: document.getElementById('con-form-acc').value,
+        title: document.getElementById('con-form-title').value,
+        email: document.getElementById('con-form-email').value
+      };
+      appState.contacts.unshift(newCon);
+      closeModal('newContactModal');
+      renderContacts();
+    }
+
+    async function submitNewActivity(e) {
+      e.preventDefault();
+      const newAct = {
+        id: 'act-' + (appState.activities.length + 1),
+        type: document.getElementById('act-form-type').value,
+        subject: document.getElementById('act-form-subject').value,
+        time: document.getElementById('act-form-time').value,
+        assignedTo: currentPersona === 'admin' ? 'Alexander Pierce' : 'Sarah Connor',
+        status: 'PENDING'
+      };
+      appState.activities.unshift(newAct);
+      closeModal('newActivityModal');
+      renderActivities();
+      renderDashboard();
+    }
+
+    async function submitNewTicket(e) {
+      e.preventDefault();
+      const newTick = {
+        id: '10' + (appState.tickets.length + 10),
+        customer: document.getElementById('tick-form-customer').value,
+        subject: document.getElementById('tick-form-subject').value,
+        priority: document.getElementById('tick-form-priority').value,
+        status: 'OPEN',
+        sla: '2h remaining'
+      };
+      appState.tickets.unshift(newTick);
+      closeModal('newTicketModal');
+      renderTickets();
+    }
+
+    function toggleActivityStatus(actId) {
+      const act = appState.activities.find(a => a.id === actId);
+      if (act) {
+        act.status = act.status === 'COMPLETED' ? 'PENDING' : 'COMPLETED';
+        renderActivities();
+      }
+    }
+
+    function resolveTicket(tickId) {
+      const tick = appState.tickets.find(t => t.id === tickId);
+      if (tick) {
+        tick.status = 'RESOLVED';
+        tick.sla = 'Met SLA ✔';
+        renderTickets();
+      }
+    }
+
+    // Tab Navigation
     function switchTab(tabId) {
-      ['dashboard', 'deals', 'leads', 'accounts', 'contacts', 'activities', 'support', 'workflows'].forEach(t => {
+      const tabs = ['dashboard', 'leads', 'accounts', 'contacts', 'deals', 'activities', 'history', 'support', 'analytics'];
+      tabs.forEach(t => {
         const el = document.getElementById('tab-' + t);
         const btn = document.getElementById('nav-' + t);
         if (el && btn) {
@@ -583,6 +1102,7 @@
       });
     }
 
+    // Sidebar Toggle with Expand/Collapse Arrows
     function toggleSidebar() {
       const sidebar = document.getElementById('sidebar');
       const brandExpanded = document.getElementById('brand-expanded');
@@ -598,7 +1118,6 @@
       isSidebarCollapsed = !isSidebarCollapsed;
 
       if (isSidebarCollapsed) {
-        // COLLAPSED MODE (w-20)
         sidebar.classList.remove('w-64');
         sidebar.classList.add('w-20');
 
@@ -618,7 +1137,6 @@
           btn.classList.remove('px-3.5');
         });
       } else {
-        // EXPANDED MODE (w-64)
         sidebar.classList.remove('w-20');
         sidebar.classList.add('w-64');
 
@@ -642,8 +1160,6 @@
 
     function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
     function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
-
-    initApp();
   </script>
 </body>
 </html>
