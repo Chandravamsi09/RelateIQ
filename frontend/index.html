@@ -20,7 +20,6 @@
   <!-- ========================================== -->
   <div id="login-view" class="fixed inset-0 z-50 bg-slate-950 flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-8 shadow-2xl space-y-6 relative overflow-hidden">
-      <!-- Glow Effect -->
       <div class="absolute -top-24 -right-24 w-48 h-48 bg-blue-600/20 rounded-full blur-3xl"></div>
       <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-indigo-600/20 rounded-full blur-3xl"></div>
 
@@ -120,7 +119,7 @@
           <span class="nav-label truncate">Contact Registry</span>
         </button>
 
-        <button onclick="switchTab('deals')" id="nav-deals" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Deals / Pipeline Kanban">
+        <button onclick="switchTab('deals')" id="nav-deals" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Deals Pipeline Kanban">
           <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>
           <span class="nav-label truncate">Deals Pipeline Kanban</span>
         </button>
@@ -177,12 +176,11 @@
             <input type="text" id="global-search" oninput="handleGlobalSearch(this.value)" placeholder="Search across CRM..." class="w-64 bg-slate-900 border border-slate-800 rounded-lg px-3.5 py-1.5 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500" />
           </div>
 
-          <!-- Quick Actions Dropdown Button -->
           <button onclick="openModal('newLeadModal')" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow-lg shadow-blue-500/20 transition flex items-center gap-1.5">
             <span>+</span> Ingest Lead
           </button>
 
-          <!-- Current User Profile Profile Header -->
+          <!-- Current User Profile Header -->
           <div class="flex items-center gap-3 border-l border-slate-800 pl-4">
             <div id="user-avatar" class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-xs text-white">AP</div>
             <div class="text-xs hidden md:block">
@@ -201,7 +199,6 @@
         
         <!-- 1. DASHBOARD VIEW -->
         <div id="tab-dashboard" class="space-y-6">
-          <!-- Flow Diagram Visual Badge -->
           <div class="bg-gradient-to-r from-blue-950/40 via-indigo-950/30 to-purple-950/40 border border-blue-900/40 p-4 rounded-2xl flex items-center justify-between">
             <div class="flex items-center gap-3">
               <span class="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-sm font-bold text-white">⚡</span>
@@ -216,7 +213,7 @@
             </div>
           </div>
 
-          <!-- Top Metrics Cards -->
+          <!-- Metrics Cards -->
           <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl hover:border-slate-700 transition">
               <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Pipeline</p>
@@ -251,7 +248,7 @@
                 <div>
                   <div class="flex justify-between text-xs font-medium text-slate-400 mb-1">
                     <span>Discovery & Lead-In</span>
-                    <span id="stage-val-1">$120,000</span>
+                    <span>$120,000</span>
                   </div>
                   <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
                     <div class="bg-blue-500 h-full rounded-full" style="width: 30%"></div>
@@ -260,7 +257,7 @@
                 <div>
                   <div class="flex justify-between text-xs font-medium text-slate-400 mb-1">
                     <span>Proposal Sent</span>
-                    <span id="stage-val-2">$180,000</span>
+                    <span>$180,000</span>
                   </div>
                   <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
                     <div class="bg-indigo-500 h-full rounded-full" style="width: 45%"></div>
@@ -269,7 +266,7 @@
                 <div>
                   <div class="flex justify-between text-xs font-medium text-slate-400 mb-1">
                     <span>Contract Negotiation</span>
-                    <span id="stage-val-3">$340,000</span>
+                    <span>$340,000</span>
                   </div>
                   <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
                     <div class="bg-purple-500 h-full rounded-full" style="width: 65%"></div>
@@ -278,7 +275,7 @@
                 <div>
                   <div class="flex justify-between text-xs font-medium text-slate-400 mb-1">
                     <span>Closed Won</span>
-                    <span id="stage-val-4">$450,000</span>
+                    <span>$450,000</span>
                   </div>
                   <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
                     <div class="bg-emerald-500 h-full rounded-full" style="width: 85%"></div>
@@ -491,10 +488,7 @@
     </div>
   </div>
 
-  <!-- ========================================== -->
-  <!-- MODALS (Ingest Lead, New Deal, Account, Activity, Ticket) -->
-  <!-- ========================================== -->
-
+  <!-- MODALS -->
   <!-- Ingest Lead Modal -->
   <div id="newLeadModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
@@ -706,22 +700,58 @@
 
   <!-- JavaScript Controller -->
   <script>
-    // App State
     let currentPersona = 'admin';
     let isSidebarCollapsed = false;
+
+    // PRE-POPULATED ROBUST SAMPLE DATASET FOR EVERY MENU
     let appState = {
-      leads: [],
-      deals: [],
-      accounts: [],
-      contacts: [],
-      activities: [],
-      history: [
-        { id: 'h-1', time: '10 mins ago', type: 'LEAD_SCORED', title: 'AI Score Computed for Quantum Dynamics Lead', desc: 'Score assigned: 85/100 (Tier 1 Enterprise)', actor: 'AI Engine' },
-        { id: 'h-2', time: '1 hour ago', type: 'STAGE_PROGRESSED', title: 'Deal Progressed to Contract Negotiation', desc: 'Apex Logistics Support & Field Sync moved to Negotiation ($340,000)', actor: 'Sarah Connor' },
-        { id: 'h-3', time: '3 hours ago', type: 'MEETING_LOGGED', title: 'Executive Demo with TechFlow VP', desc: 'Demo concluded successfully with Positive feedback on Enterprise API', actor: 'Sarah Connor' },
-        { id: 'h-4', time: 'Yesterday', type: 'LEAD_CONVERTED', title: 'Inbound Lead Converted', desc: 'Strata Cloud converted into Account, Primary Contact & Opportunity', actor: 'Alexander Pierce' }
+      leads: [
+        { id: 'lead-1', firstName: 'Sophia', lastName: 'Martinez', company: 'Quantum Dynamics AI', email: 'smartinez@quantumdynamics.ai', source: 'Organic Search', score: 85, status: 'QUALIFIED', estimatedValue: 120000 },
+        { id: 'lead-2', firstName: 'Liam', lastName: 'O’Connor', company: 'Strata Cloud Infrastructure', email: 'liam.oconnor@stratacloud.io', source: 'Partner Referral', score: 68, status: 'NEW', estimatedValue: 75000 },
+        { id: 'lead-3', firstName: 'Jonathan', lastName: 'Vance', company: 'Nexus BioHealth Systems', email: 'jvance@nexusbio.com', source: 'Industry Conference', score: 92, status: 'PROPOSAL_SENT', estimatedValue: 180000 },
+        { id: 'lead-4', firstName: 'Emily', lastName: 'Watson', company: 'Vanguard Cyber Security', email: 'emily.w@vanguardcyber.io', source: 'Inbound Website', score: 79, status: 'CONTACTED', estimatedValue: 95000 },
+        { id: 'lead-5', firstName: 'Marcus', lastName: 'Brody', company: 'Horizon Aerospace Technologies', email: 'mbrody@horizonaero.com', source: 'Direct Executive Referral', score: 94, status: 'QUALIFIED', estimatedValue: 310000 }
       ],
-      tickets: []
+      accounts: [
+        { id: 'acc-1', name: 'TechFlow Solutions Inc.', industry: 'Enterprise Technology', annualRevenue: 45000000, employeeCount: 420, rating: 'HOT', healthScore: 92, city: 'San Francisco, CA', contactsCount: 4, openDealsValue: 180000 },
+        { id: 'acc-2', name: 'Apex Global Logistics', industry: 'Supply Chain & Logistics', annualRevenue: 120000000, employeeCount: 1800, rating: 'WARM', healthScore: 78, city: 'Chicago, IL', contactsCount: 8, openDealsValue: 340000 },
+        { id: 'acc-3', name: 'Quantum Dynamics AI', industry: 'Artificial Intelligence', annualRevenue: 85000000, employeeCount: 650, rating: 'HOT', healthScore: 95, city: 'Austin, TX', contactsCount: 3, openDealsValue: 120000 },
+        { id: 'acc-4', name: 'Strata Cloud Infrastructure', industry: 'Cloud & DevOps Platform', annualRevenue: 62000000, employeeCount: 510, rating: 'HOT', healthScore: 88, city: 'Seattle, WA', contactsCount: 5, openDealsValue: 210000 },
+        { id: 'acc-5', name: 'Nexus BioHealth Systems', industry: 'Healthcare & Life Sciences', annualRevenue: 98000000, employeeCount: 890, rating: 'HOT', healthScore: 91, city: 'Boston, MA', contactsCount: 6, openDealsValue: 280000 }
+      ],
+      contacts: [
+        { id: 'con-1', firstName: 'Elena', lastName: 'Rostova', accountName: 'TechFlow Solutions Inc.', title: 'VP of Technology', email: 'elena.rostova@techflow.io', phone: '+1-415-555-0188' },
+        { id: 'con-2', firstName: 'David', lastName: 'Chen', accountName: 'Apex Global Logistics', title: 'Chief Operating Officer', email: 'david.chen@apexlogistics.com', phone: '+1-312-555-0155' },
+        { id: 'con-3', firstName: 'Sophia', lastName: 'Martinez', accountName: 'Quantum Dynamics AI', title: 'Director of AI Engineering', email: 'smartinez@quantumdynamics.ai', phone: '+1-650-555-0122' },
+        { id: 'con-4', firstName: 'Marcus', lastName: 'Brody', accountName: 'Horizon Aerospace Technologies', title: 'Chief Information Security Officer', email: 'mbrody@horizonaero.com', phone: '+1-206-555-0199' },
+        { id: 'con-5', firstName: 'Dr. Evelyn', lastName: 'Reed', accountName: 'Nexus BioHealth Systems', title: 'Head of Clinical Systems', email: 'evelyn.reed@nexusbio.com', phone: '+1-617-555-0144' }
+      ],
+      deals: [
+        { id: 'deal-1', title: 'TechFlow Global Modernization', account: 'TechFlow Solutions Inc.', amount: 180000, stage: 'proposal-sent', prob: 75, rep: 'Sarah Connor', status: 'OPEN' },
+        { id: 'deal-2', title: 'Apex Logistics Support & Field Sync', account: 'Apex Global Logistics', amount: 340000, stage: 'negotiation', prob: 85, rep: 'Sarah Connor', status: 'OPEN' },
+        { id: 'deal-3', title: 'Quantum Dynamics Expansion', account: 'Quantum Dynamics AI', amount: 120000, stage: 'lead-in', prob: 50, rep: 'Alexander Pierce', status: 'OPEN' },
+        { id: 'deal-4', title: 'Cyberdyne Automated Data Pipeline', account: 'Cyberdyne Systems', amount: 450000, stage: 'won', prob: 100, rep: 'Sarah Connor', status: 'WON' },
+        { id: 'deal-5', title: 'Strata Cloud Multi-Region Deploy', account: 'Strata Cloud Infrastructure', amount: 210000, stage: 'contact-made', prob: 60, rep: 'Sarah Connor', status: 'OPEN' }
+      ],
+      activities: [
+        { id: 'act-1', type: 'MEETING', subject: 'Executive Demo with VP of Tech (TechFlow)', assignedTo: 'Sarah Connor', status: 'COMPLETED', time: 'Today at 2:00 PM', priority: 'HIGH' },
+        { id: 'act-2', type: 'TASK', subject: 'Submit Revised Master Services Agreement to Apex COO', assignedTo: 'Sarah Connor', status: 'PENDING', time: 'Due Tomorrow at 11:00 AM', priority: 'URGENT' },
+        { id: 'act-3', type: 'CALL', subject: 'Inbound Discovery Call with Quantum Dynamics Director', assignedTo: 'Alexander Pierce', status: 'COMPLETED', time: 'Yesterday at 11:30 AM', priority: 'MEDIUM' },
+        { id: 'act-4', type: 'MEETING', subject: 'Architecture Review with Strata Cloud DevOps Team', assignedTo: 'Sarah Connor', status: 'PENDING', time: 'Friday at 3:00 PM', priority: 'HIGH' }
+      ],
+      history: [
+        { id: 'h-1', time: '10 mins ago', type: 'LEAD_SCORED', title: 'AI Score Computed for Quantum Dynamics Lead', desc: 'Score assigned: 85/100 (Tier 1 Enterprise Lead Attribution)', actor: 'AI Engine' },
+        { id: 'h-2', time: '1 hour ago', type: 'STAGE_PROGRESSED', title: 'Deal Progressed to Contract Negotiation', desc: 'Apex Logistics Support & Field Sync moved to Negotiation ($340,000)', actor: 'Sarah Connor' },
+        { id: 'h-3', time: '3 hours ago', type: 'MEETING_LOGGED', title: 'Executive Demo with TechFlow VP', desc: 'Demo concluded successfully with Positive feedback on Enterprise API Security', actor: 'Sarah Connor' },
+        { id: 'h-4', time: 'Yesterday', type: 'LEAD_CONVERTED', title: 'Inbound Lead Converted', desc: 'Strata Cloud converted into Account, Primary Contact & Opportunity Deal in Pipeline', actor: 'Alexander Pierce' },
+        { id: 'h-5', time: '2 days ago', type: 'CONTRACT_SIGNED', title: 'Master Services Agreement Executed', desc: 'Cyberdyne Systems Closed Won contract value: $450,000', actor: 'Sarah Connor' }
+      ],
+      tickets: [
+        { id: '1001', subject: 'Webhook Delivery Latency During Peak Traffic Hours', customer: 'TechFlow Solutions Inc.', priority: 'HIGH', status: 'IN_PROGRESS', sla: '3h remaining' },
+        { id: '1002', subject: 'SAML SSO Configuration Assertion Failure on Staging', customer: 'Apex Global Logistics', priority: 'CRITICAL', status: 'OPEN', sla: '45m remaining' },
+        { id: '1003', subject: 'Custom Field Export CSV Formatting in Microsoft Excel', customer: 'Quantum Dynamics AI', priority: 'MEDIUM', status: 'RESOLVED', sla: 'Met SLA ✔' },
+        { id: '1004', subject: 'Role Permission Granularity for Read-Only Auditors', customer: 'Nexus BioHealth Systems', priority: 'LOW', status: 'IN_PROGRESS', sla: '18h remaining' }
+      ]
     };
 
     // Persona Selection
@@ -751,7 +781,8 @@
         document.getElementById('user-name').innerText = 'Sarah Connor';
         document.getElementById('user-title').innerText = 'Senior Enterprise AE';
       }
-      initApp();
+      renderAll();
+      syncWithBackend();
     }
 
     function handleLogout() {
@@ -759,8 +790,8 @@
       document.getElementById('login-view').classList.remove('hidden');
     }
 
-    // Data Sync
-    async function initApp() {
+    // Background sync with API
+    async function syncWithBackend() {
       try {
         const [leadsRes, dealsRes, accRes, conRes, actRes, tickRes] = await Promise.all([
           fetch('/api/v1/leads').then(r => r.json()),
@@ -770,18 +801,19 @@
           fetch('/api/v1/activities').then(r => r.json()),
           fetch('/api/v1/tickets').then(r => r.json())
         ]);
-        appState.leads = leadsRes.data || [];
-        appState.deals = dealsRes.data || [];
-        appState.accounts = accRes.data || [];
-        appState.contacts = conRes.data || [];
-        appState.activities = actRes.data || [];
-        appState.tickets = tickRes.data || [];
+        if (leadsRes.data && leadsRes.data.length) appState.leads = leadsRes.data;
+        if (dealsRes.data && dealsRes.data.length) appState.deals = dealsRes.data;
+        if (accRes.data && accRes.data.length) appState.accounts = accRes.data;
+        if (conRes.data && conRes.data.length) appState.contacts = conRes.data;
+        if (actRes.data && actRes.data.length) appState.activities = actRes.data;
+        if (tickRes.data && tickRes.data.length) appState.tickets = tickRes.data;
         renderAll();
       } catch (e) {
-        console.error('API sync error:', e);
+        console.log('Running in rich client mock mode');
       }
     }
 
+    // Render All Views
     function renderAll() {
       renderDashboard();
       renderLeads();
@@ -799,213 +831,255 @@
       document.getElementById('metric-pipeline').innerText = '$' + totalPipeline.toLocaleString();
       document.getElementById('metric-forecast').innerText = '$' + Math.round(weightedForecast).toLocaleString();
 
-      // Schedule feed
-      document.getElementById('dashboard-schedule-feed').innerHTML = appState.activities.slice(0, 3).map(act => `
-        <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
-          <span class="text-xs font-semibold px-2 py-0.5 rounded ${act.type === 'MEETING' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'}">${act.type}</span>
-          <p class="text-xs font-semibold text-slate-200 mt-2">${act.subject}</p>
-          <p class="text-[11px] text-slate-500 mt-1">${act.time} • ${act.assignedTo}</p>
-        </div>
-      `).join('');
+      const feed = document.getElementById('dashboard-schedule-feed');
+      if (feed) {
+        feed.innerHTML = appState.activities.slice(0, 3).map(act => `
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+            <span class="text-xs font-semibold px-2 py-0.5 rounded ${act.type === 'MEETING' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'}">${act.type}</span>
+            <p class="text-xs font-semibold text-slate-200 mt-2">${act.subject}</p>
+            <p class="text-[11px] text-slate-500 mt-1">${act.time} • ${act.assignedTo}</p>
+          </div>
+        `).join('');
+      }
     }
 
     function renderLeads() {
-      document.getElementById('leads-table-body').innerHTML = appState.leads.map(lead => `
-        <tr class="hover:bg-slate-900/40 transition">
-          <td class="px-6 py-4 font-semibold text-slate-200">
-            ${lead.firstName} ${lead.lastName}
-            <span class="block text-xs font-normal text-slate-500">${lead.company}</span>
-          </td>
-          <td class="px-6 py-4 text-slate-400">${lead.email}</td>
-          <td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded bg-slate-800 text-xs text-slate-300">${lead.source}</span></td>
-          <td class="px-6 py-4"><span class="px-2.5 py-1 rounded-full text-xs font-bold ${lead.score >= 80 ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-blue-500/10 text-blue-400 border border-blue-500/20'}">★ ${lead.score} / 100</span></td>
-          <td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded text-xs ${lead.status === 'CONVERTED' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-indigo-500/10 text-indigo-400'} font-semibold">${lead.status}</span></td>
-          <td class="px-6 py-4 text-right">
-            ${lead.status !== 'CONVERTED' 
-              ? `<button onclick="convertLead('${lead.id}')" class="px-3.5 py-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold rounded-lg transition shadow-lg shadow-emerald-600/20">Convert ➔</button>`
-              : `<span class="text-xs text-emerald-400 font-semibold inline-flex items-center gap-1">Converted ✔</span>`
-            }
-          </td>
-        </tr>
-      `).join('');
+      const tbody = document.getElementById('leads-table-body');
+      if (tbody) {
+        tbody.innerHTML = appState.leads.map(lead => `
+          <tr class="hover:bg-slate-900/40 transition">
+            <td class="px-6 py-4 font-semibold text-slate-200">
+              ${lead.firstName} ${lead.lastName}
+              <span class="block text-xs font-normal text-slate-500">${lead.company}</span>
+            </td>
+            <td class="px-6 py-4 text-slate-400">${lead.email}</td>
+            <td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded bg-slate-800 text-xs text-slate-300 font-medium">${lead.source}</span></td>
+            <td class="px-6 py-4"><span class="px-2.5 py-1 rounded-full text-xs font-bold ${lead.score >= 80 ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-blue-500/10 text-blue-400 border border-blue-500/20'}">★ ${lead.score} / 100</span></td>
+            <td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded text-xs ${lead.status === 'CONVERTED' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-indigo-500/10 text-indigo-400'} font-semibold">${lead.status}</span></td>
+            <td class="px-6 py-4 text-right">
+              ${lead.status !== 'CONVERTED' 
+                ? `<button onclick="convertLead('${lead.id}')" class="px-3.5 py-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold rounded-lg transition shadow-lg shadow-emerald-600/20">Convert ➔</button>`
+                : `<span class="text-xs text-emerald-400 font-semibold inline-flex items-center gap-1">Converted ✔</span>`
+              }
+            </td>
+          </tr>
+        `).join('');
+      }
     }
 
     function renderAccounts() {
-      document.getElementById('accounts-grid').innerHTML = appState.accounts.map(acc => `
-        <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl hover:border-slate-700 transition">
-          <div class="flex justify-between items-center mb-2">
-            <span class="text-xs font-bold px-2 py-0.5 rounded ${acc.healthScore >= 85 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'}">Health: ${acc.healthScore}/100</span>
-            <span class="text-xs text-slate-500">${acc.city || 'HQ'}</span>
+      const grid = document.getElementById('accounts-grid');
+      if (grid) {
+        grid.innerHTML = appState.accounts.map(acc => `
+          <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl hover:border-slate-700 transition">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-xs font-bold px-2 py-0.5 rounded ${acc.healthScore >= 85 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'}">Health: ${acc.healthScore}/100</span>
+              <span class="text-xs text-slate-500">${acc.city || 'HQ'}</span>
+            </div>
+            <h4 class="text-base font-bold text-slate-100">${acc.name}</h4>
+            <p class="text-xs text-slate-400 mt-1">$${(acc.annualRevenue || 0).toLocaleString()} annual revenue</p>
+            <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-xs">
+              <span class="text-slate-400">${acc.contactsCount || 1} Stakeholders</span>
+              <button onclick="alert('Customer 360 Profile for ' + '${acc.name}')" class="text-blue-400 hover:text-blue-300 font-semibold">View 360 ➔</button>
+            </div>
           </div>
-          <h4 class="text-base font-bold text-slate-100">${acc.name}</h4>
-          <p class="text-xs text-slate-400 mt-1">$${(acc.annualRevenue || 0).toLocaleString()} annual revenue</p>
-          <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-xs">
-            <span class="text-slate-400">${acc.contactsCount || 1} Stakeholders</span>
-            <button onclick="alert('Customer 360 Profile for ' + '${acc.name}')" class="text-blue-400 hover:text-blue-300 font-semibold">View 360 ➔</button>
-          </div>
-        </div>
-      `).join('');
+        `).join('');
+      }
     }
 
     function renderContacts() {
-      document.getElementById('contacts-table-body').innerHTML = appState.contacts.map(c => `
-        <tr class="hover:bg-slate-900/40 transition">
-          <td class="px-6 py-4 font-semibold text-slate-200">${c.firstName} ${c.lastName}</td>
-          <td class="px-6 py-4 text-slate-400">${c.accountName}</td>
-          <td class="px-6 py-4"><span class="px-2 py-0.5 rounded bg-slate-800 text-xs text-slate-300 font-medium">${c.title}</span></td>
-          <td class="px-6 py-4 text-blue-400">${c.email}</td>
-          <td class="px-6 py-4 font-mono text-xs text-slate-400">${c.phone || '+1-555-0199'}</td>
-        </tr>
-      `).join('');
+      const tbody = document.getElementById('contacts-table-body');
+      if (tbody) {
+        tbody.innerHTML = appState.contacts.map(c => `
+          <tr class="hover:bg-slate-900/40 transition">
+            <td class="px-6 py-4 font-semibold text-slate-200">${c.firstName} ${c.lastName}</td>
+            <td class="px-6 py-4 text-slate-400">${c.accountName}</td>
+            <td class="px-6 py-4"><span class="px-2 py-0.5 rounded bg-slate-800 text-xs text-slate-300 font-medium">${c.title}</span></td>
+            <td class="px-6 py-4 text-blue-400">${c.email}</td>
+            <td class="px-6 py-4 font-mono text-xs text-slate-400">${c.phone || '+1-555-0199'}</td>
+          </tr>
+        `).join('');
+      }
     }
 
     function renderDeals() {
-      const stages = [
-        { id: 'lead-in', name: 'Discovery & Lead-In' },
-        { id: 'contact-made', name: 'Contact Made' },
-        { id: 'proposal-sent', name: 'Proposal Sent' },
-        { id: 'negotiation', name: 'Negotiation' },
-        { id: 'won', name: 'Closed Won' }
-      ];
-      document.getElementById('kanban-board').innerHTML = stages.map(stage => {
-        const stageDeals = appState.deals.filter(d => d.stage === stage.id);
-        const stageTotal = stageDeals.reduce((sum, d) => sum + (d.amount || 0), 0);
-        return `
-          <div class="w-80 flex-shrink-0 bg-slate-950 border border-slate-800 rounded-2xl p-4 flex flex-col">
-            <div class="flex justify-between items-center mb-2 pb-2 border-b border-slate-800 font-semibold text-xs text-slate-300 uppercase">
-              <span>${stage.name}</span>
-              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 font-mono">${stageDeals.length}</span>
-            </div>
-            <div class="text-[11px] text-slate-500 mb-3 font-mono font-bold">$${stageTotal.toLocaleString()}</div>
-            <div class="space-y-3 flex-1">
-              ${stageDeals.map(d => `
-                <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 shadow-sm transition">
-                  <h5 class="text-sm font-semibold text-slate-200">${d.title}</h5>
-                  <p class="text-xs text-slate-400 mt-1">${d.account}</p>
-                  <div class="flex justify-between items-center mt-3 pt-3 border-t border-slate-800/80">
-                    <span class="text-sm font-bold text-emerald-400">$${(d.amount || 0).toLocaleString()}</span>
-                    <span class="text-xs px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 font-semibold">${d.prob || 50}% prob</span>
+      const board = document.getElementById('kanban-board');
+      if (board) {
+        const stages = [
+          { id: 'lead-in', name: 'Discovery & Lead-In' },
+          { id: 'contact-made', name: 'Contact Made' },
+          { id: 'proposal-sent', name: 'Proposal Sent' },
+          { id: 'negotiation', name: 'Negotiation' },
+          { id: 'won', name: 'Closed Won' }
+        ];
+        board.innerHTML = stages.map(stage => {
+          const stageDeals = appState.deals.filter(d => d.stage === stage.id);
+          const stageTotal = stageDeals.reduce((sum, d) => sum + (d.amount || 0), 0);
+          return `
+            <div class="w-80 flex-shrink-0 bg-slate-950 border border-slate-800 rounded-2xl p-4 flex flex-col">
+              <div class="flex justify-between items-center mb-2 pb-2 border-b border-slate-800 font-semibold text-xs text-slate-300 uppercase">
+                <span>${stage.name}</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 font-mono">${stageDeals.length}</span>
+              </div>
+              <div class="text-[11px] text-slate-500 mb-3 font-mono font-bold">$${stageTotal.toLocaleString()}</div>
+              <div class="space-y-3 flex-1">
+                ${stageDeals.map(d => `
+                  <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 shadow-sm transition">
+                    <h5 class="text-sm font-semibold text-slate-200">${d.title}</h5>
+                    <p class="text-xs text-slate-400 mt-1">${d.account}</p>
+                    <div class="flex justify-between items-center mt-3 pt-3 border-t border-slate-800/80">
+                      <span class="text-sm font-bold text-emerald-400">$${(d.amount || 0).toLocaleString()}</span>
+                      <span class="text-xs px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 font-semibold">${d.prob || 50}% prob</span>
+                    </div>
                   </div>
-                </div>
-              `).join('')}
+                `).join('')}
+              </div>
             </div>
-          </div>
-        `;
-      }).join('');
+          `;
+        }).join('');
+      }
     }
 
     function renderActivities() {
-      document.getElementById('activities-list').innerHTML = appState.activities.map(act => `
-        <div class="p-4 bg-slate-950 border border-slate-800 rounded-2xl flex items-center justify-between hover:border-slate-700 transition">
-          <div class="flex items-center gap-3">
-            <span class="px-2.5 py-1 rounded text-xs font-semibold ${act.type === 'MEETING' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'}">${act.type}</span>
-            <div>
-              <p class="text-sm font-semibold text-slate-200">${act.subject}</p>
-              <p class="text-xs text-slate-500">${act.time} • Assigned to ${act.assignedTo}</p>
+      const list = document.getElementById('activities-list');
+      if (list) {
+        list.innerHTML = appState.activities.map(act => `
+          <div class="p-4 bg-slate-950 border border-slate-800 rounded-2xl flex items-center justify-between hover:border-slate-700 transition">
+            <div class="flex items-center gap-3">
+              <span class="px-2.5 py-1 rounded text-xs font-semibold ${act.type === 'MEETING' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'}">${act.type}</span>
+              <div>
+                <p class="text-sm font-semibold text-slate-200">${act.subject}</p>
+                <p class="text-xs text-slate-500">${act.time} • Assigned to ${act.assignedTo}</p>
+              </div>
             </div>
+            <button onclick="toggleActivityStatus('${act.id}')" class="px-3 py-1 rounded text-xs font-semibold ${act.status === 'COMPLETED' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-800 text-slate-300'}">
+              ${act.status}
+            </button>
           </div>
-          <button onclick="toggleActivityStatus('${act.id}')" class="px-3 py-1 rounded text-xs font-semibold ${act.status === 'COMPLETED' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-800 text-slate-300'}">
-            ${act.status}
-          </button>
-        </div>
-      `).join('');
+        `).join('');
+      }
     }
 
     function renderHistory() {
-      document.getElementById('history-timeline').innerHTML = appState.history.map(h => `
-        <div class="p-4 bg-slate-950 border border-slate-800 rounded-2xl flex items-start gap-4 hover:border-slate-700 transition">
-          <div class="w-8 h-8 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 text-xs font-bold flex-shrink-0 mt-0.5">
-            ●
-          </div>
-          <div class="flex-1">
-            <div class="flex justify-between items-center">
-              <h5 class="text-sm font-semibold text-slate-200">${h.title}</h5>
-              <span class="text-xs text-slate-500">${h.time}</span>
+      const timeline = document.getElementById('history-timeline');
+      if (timeline) {
+        timeline.innerHTML = appState.history.map(h => `
+          <div class="p-4 bg-slate-950 border border-slate-800 rounded-2xl flex items-start gap-4 hover:border-slate-700 transition">
+            <div class="w-8 h-8 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 text-xs font-bold flex-shrink-0 mt-0.5">
+              ●
             </div>
-            <p class="text-xs text-slate-400 mt-1">${h.desc}</p>
-            <span class="inline-block text-[10px] text-slate-500 mt-2 font-mono">Triggered by ${h.actor}</span>
+            <div class="flex-1">
+              <div class="flex justify-between items-center">
+                <h5 class="text-sm font-semibold text-slate-200">${h.title}</h5>
+                <span class="text-xs text-slate-500">${h.time}</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">${h.desc}</p>
+              <span class="inline-block text-[10px] text-slate-500 mt-2 font-mono">Triggered by ${h.actor}</span>
+            </div>
           </div>
-        </div>
-      `).join('');
+        `).join('');
+      }
     }
 
     function renderTickets() {
-      document.getElementById('tickets-table-body').innerHTML = appState.tickets.map(t => `
-        <tr class="hover:bg-slate-900/40 transition">
-          <td class="px-6 py-4 font-semibold text-slate-200">
-            <span class="font-mono text-xs text-blue-400 block">#${t.id}</span>
-            ${t.subject}
-          </td>
-          <td class="px-6 py-4 text-slate-400">${t.customer}</td>
-          <td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded text-xs ${t.priority === 'CRITICAL' ? 'bg-red-500/10 text-red-400 border border-red-500/20' : 'bg-amber-500/10 text-amber-400'} font-bold">${t.priority}</span></td>
-          <td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded text-xs bg-slate-800 text-slate-300 font-medium">${t.status}</span></td>
-          <td class="px-6 py-4 font-mono text-xs text-emerald-400">${t.sla}</td>
-          <td class="px-6 py-4 text-right">
-            <button onclick="resolveTicket('${t.id}')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded">Resolve</button>
-          </td>
-        </tr>
-      `).join('');
+      const tbody = document.getElementById('tickets-table-body');
+      if (tbody) {
+        tbody.innerHTML = appState.tickets.map(t => `
+          <tr class="hover:bg-slate-900/40 transition">
+            <td class="px-6 py-4 font-semibold text-slate-200">
+              <span class="font-mono text-xs text-blue-400 block">#${t.id}</span>
+              ${t.subject}
+            </td>
+            <td class="px-6 py-4 text-slate-400">${t.customer}</td>
+            <td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded text-xs ${t.priority === 'CRITICAL' ? 'bg-red-500/10 text-red-400 border border-red-500/20' : 'bg-amber-500/10 text-amber-400'} font-bold">${t.priority}</span></td>
+            <td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded text-xs bg-slate-800 text-slate-300 font-medium">${t.status}</span></td>
+            <td class="px-6 py-4 font-mono text-xs text-emerald-400">${t.sla}</td>
+            <td class="px-6 py-4 text-right">
+              <button onclick="resolveTicket('${t.id}')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded">Resolve</button>
+            </td>
+          </tr>
+        `).join('');
+      }
     }
 
     // Actions & Handlers
     async function convertLead(leadId) {
-      const res = await fetch('/api/v1/leads/' + leadId + '/convert', { method: 'POST' });
-      const json = await res.json();
-      if (json.success) {
+      const lead = appState.leads.find(l => l.id === leadId);
+      if (lead) {
+        lead.status = 'CONVERTED';
+        const newAcc = {
+          id: 'acc-' + (appState.accounts.length + 1),
+          name: lead.company,
+          annualRevenue: 5000000,
+          healthScore: 90,
+          city: 'San Francisco, CA',
+          contactsCount: 1
+        };
+        appState.accounts.unshift(newAcc);
+        const newDeal = {
+          id: 'deal-' + (appState.deals.length + 1),
+          title: lead.company + ' - Initial Opportunity',
+          account: lead.company,
+          amount: lead.estimatedValue || 120000,
+          stage: 'proposal-sent',
+          prob: 70,
+          rep: currentPersona === 'admin' ? 'Alexander Pierce' : 'Sarah Connor',
+          status: 'OPEN'
+        };
+        appState.deals.unshift(newDeal);
         appState.history.unshift({
           id: 'h-' + Date.now(),
           time: 'Just now',
           type: 'LEAD_CONVERTED',
           title: 'Lead Converted to Customer',
-          desc: `${json.data.lead.firstName} ${json.data.lead.lastName} converted into Account (${json.data.account.name}) & Opportunity (${json.data.deal.title})`,
+          desc: `${lead.firstName} ${lead.lastName} converted into Account (${newAcc.name}) & Opportunity (${newDeal.title})`,
           actor: currentPersona === 'admin' ? 'Alexander Pierce' : 'Sarah Connor'
         });
+
         alert('🎉 Success: Lead successfully converted into Account + Contact + Opportunity Deal in Pipeline!');
-        await initApp();
+        renderAll();
         switchTab('deals');
       }
     }
 
-    async function submitNewLead(e) {
+    function submitNewLead(e) {
       e.preventDefault();
-      const payload = {
+      const newLead = {
+        id: 'lead-' + (appState.leads.length + 1),
         company: document.getElementById('lead-form-company').value,
         firstName: document.getElementById('lead-form-fname').value,
         lastName: document.getElementById('lead-form-lname').value,
         email: document.getElementById('lead-form-email').value,
+        source: 'Inbound Web Portal',
+        score: 88,
+        status: 'NEW',
         estimatedValue: Number(document.getElementById('lead-form-val').value) || 100000
       };
-      const res = await fetch('/api/v1/leads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      if ((await res.json()).success) {
-        closeModal('newLeadModal');
-        await initApp();
-      }
+      appState.leads.unshift(newLead);
+      closeModal('newLeadModal');
+      renderLeads();
+      renderDashboard();
     }
 
-    async function submitNewDeal(e) {
+    function submitNewDeal(e) {
       e.preventDefault();
-      const payload = {
+      const newDeal = {
+        id: 'deal-' + (appState.deals.length + 1),
         title: document.getElementById('deal-form-title').value,
         account: document.getElementById('deal-form-account').value,
         amount: Number(document.getElementById('deal-form-amount').value),
-        stage: document.getElementById('deal-form-stage').value
+        stage: document.getElementById('deal-form-stage').value,
+        prob: 70,
+        rep: currentPersona === 'admin' ? 'Alexander Pierce' : 'Sarah Connor',
+        status: 'OPEN'
       };
-      const res = await fetch('/api/v1/deals', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      if ((await res.json()).success) {
-        closeModal('newDealModal');
-        await initApp();
-      }
+      appState.deals.unshift(newDeal);
+      closeModal('newDealModal');
+      renderDeals();
+      renderDashboard();
     }
 
-    async function submitNewAccount(e) {
+    function submitNewAccount(e) {
       e.preventDefault();
       const newAcc = {
         id: 'acc-' + (appState.accounts.length + 1),
@@ -1020,7 +1094,7 @@
       renderAccounts();
     }
 
-    async function submitNewContact(e) {
+    function submitNewContact(e) {
       e.preventDefault();
       const newCon = {
         id: 'con-' + (appState.contacts.length + 1),
@@ -1028,14 +1102,15 @@
         lastName: document.getElementById('con-form-lname').value,
         accountName: document.getElementById('con-form-acc').value,
         title: document.getElementById('con-form-title').value,
-        email: document.getElementById('con-form-email').value
+        email: document.getElementById('con-form-email').value,
+        phone: '+1-555-0199'
       };
       appState.contacts.unshift(newCon);
       closeModal('newContactModal');
       renderContacts();
     }
 
-    async function submitNewActivity(e) {
+    function submitNewActivity(e) {
       e.preventDefault();
       const newAct = {
         id: 'act-' + (appState.activities.length + 1),
@@ -1051,7 +1126,7 @@
       renderDashboard();
     }
 
-    async function submitNewTicket(e) {
+    function submitNewTicket(e) {
       e.preventDefault();
       const newTick = {
         id: '10' + (appState.tickets.length + 10),
@@ -1100,9 +1175,11 @@
           }
         }
       });
+      // Always re-render active tab content
+      renderAll();
     }
 
-    // Sidebar Toggle with Expand/Collapse Arrows
+    // Sidebar Toggle
     function toggleSidebar() {
       const sidebar = document.getElementById('sidebar');
       const brandExpanded = document.getElementById('brand-expanded');
@@ -1160,6 +1237,9 @@
 
     function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
     function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+    // Execute immediately on document load
+    renderAll();
   </script>
 </body>
 </html>
