@@ -1,0 +1,30 @@
+{
+  "name": "relateiq-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "RelateIQ - Enterprise Client Relationship Management Platform",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "npm run build --workspaces",
+    "test": "node backend/tests/runner.js",
+    "lint": "npm run lint --workspaces",
+    "count-loc": "node scripts/count-loc.js"
+  },
+  "keywords": [
+    "crm",
+    "enterprise",
+    "sales",
+    "leads",
+    "deals",
+    "pipeline",
+    "helpdesk",
+    "automation"
+  ],
+  "author": "RelateIQ Engineering Team",
+  "license": "MIT"
+}
