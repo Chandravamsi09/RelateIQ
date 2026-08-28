@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "RelateIQ Enterprise CRM Backend Service",
   "main": "dist/index.js",
+  "license": "UNLICENSED",
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",

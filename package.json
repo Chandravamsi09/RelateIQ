@@ -8,6 +8,8 @@
     "frontend"
   ],
   "scripts": {
+    "start": "node scripts/start-local.js",
+    "dev": "node scripts/start-local.js",
     "dev:backend": "cd backend && npm run dev",
     "dev:frontend": "cd frontend && npm run dev",
     "build": "npm run build --workspaces",
@@ -26,5 +28,5 @@
     "automation"
   ],
   "author": "RelateIQ Engineering Team",
-  "license": "MIT"
+  "license": "UNLICENSED"
 }
