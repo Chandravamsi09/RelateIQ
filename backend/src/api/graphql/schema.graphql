@@ -1,0 +1,1064 @@
+# =========================================================================
+# RelateIQ Enterprise CRM - Master GraphQL Schema Specification
+# Real-Time Queries, Mutations, Subscriptions & Edge Types
+# =========================================================================
+
+scalar DateTime
+scalar JSON
+scalar UUID
+
+type Tenant {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateTenantInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateTenantInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type TenantConnection {
+  edges: [TenantEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TenantEdge {
+  node: Tenant!
+  cursor: String!
+}
+
+type User {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateUserInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateUserInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type UserConnection {
+  edges: [UserEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type UserEdge {
+  node: User!
+  cursor: String!
+}
+
+type Role {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateRoleInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateRoleInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type RoleConnection {
+  edges: [RoleEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type RoleEdge {
+  node: Role!
+  cursor: String!
+}
+
+type Permission {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreatePermissionInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdatePermissionInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type PermissionConnection {
+  edges: [PermissionEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type PermissionEdge {
+  node: Permission!
+  cursor: String!
+}
+
+type Account {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateAccountInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateAccountInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type AccountConnection {
+  edges: [AccountEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type AccountEdge {
+  node: Account!
+  cursor: String!
+}
+
+type Contact {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateContactInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateContactInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type ContactConnection {
+  edges: [ContactEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type ContactEdge {
+  node: Contact!
+  cursor: String!
+}
+
+type Lead {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateLeadInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateLeadInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type LeadConnection {
+  edges: [LeadEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type LeadEdge {
+  node: Lead!
+  cursor: String!
+}
+
+type Pipeline {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreatePipelineInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdatePipelineInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type PipelineConnection {
+  edges: [PipelineEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type PipelineEdge {
+  node: Pipeline!
+  cursor: String!
+}
+
+type PipelineStage {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreatePipelineStageInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdatePipelineStageInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type PipelineStageConnection {
+  edges: [PipelineStageEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type PipelineStageEdge {
+  node: PipelineStage!
+  cursor: String!
+}
+
+type Deal {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateDealInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateDealInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type DealConnection {
+  edges: [DealEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type DealEdge {
+  node: Deal!
+  cursor: String!
+}
+
+type Activity {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateActivityInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateActivityInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type ActivityConnection {
+  edges: [ActivityEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type ActivityEdge {
+  node: Activity!
+  cursor: String!
+}
+
+type Task {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateTaskInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateTaskInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type TaskConnection {
+  edges: [TaskEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TaskEdge {
+  node: Task!
+  cursor: String!
+}
+
+type Meeting {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateMeetingInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateMeetingInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type MeetingConnection {
+  edges: [MeetingEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type MeetingEdge {
+  node: Meeting!
+  cursor: String!
+}
+
+type CallLog {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateCallLogInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateCallLogInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type CallLogConnection {
+  edges: [CallLogEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type CallLogEdge {
+  node: CallLog!
+  cursor: String!
+}
+
+type Ticket {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateTicketInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateTicketInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type TicketConnection {
+  edges: [TicketEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TicketEdge {
+  node: Ticket!
+  cursor: String!
+}
+
+type TicketComment {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateTicketCommentInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateTicketCommentInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type TicketCommentConnection {
+  edges: [TicketCommentEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TicketCommentEdge {
+  node: TicketComment!
+  cursor: String!
+}
+
+type SLAConfig {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateSLAConfigInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateSLAConfigInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type SLAConfigConnection {
+  edges: [SLAConfigEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type SLAConfigEdge {
+  node: SLAConfig!
+  cursor: String!
+}
+
+type WorkflowRule {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateWorkflowRuleInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateWorkflowRuleInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type WorkflowRuleConnection {
+  edges: [WorkflowRuleEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type WorkflowRuleEdge {
+  node: WorkflowRule!
+  cursor: String!
+}
+
+type EmailCampaign {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateEmailCampaignInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateEmailCampaignInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type EmailCampaignConnection {
+  edges: [EmailCampaignEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type EmailCampaignEdge {
+  node: EmailCampaign!
+  cursor: String!
+}
+
+type Invoice {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateInvoiceInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateInvoiceInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type InvoiceConnection {
+  edges: [InvoiceEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type InvoiceEdge {
+  node: Invoice!
+  cursor: String!
+}
+
+type Contract {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateContractInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateContractInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type ContractConnection {
+  edges: [ContractEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type ContractEdge {
+  node: Contract!
+  cursor: String!
+}
+
+type AuditLog {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateAuditLogInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateAuditLogInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type AuditLogConnection {
+  edges: [AuditLogEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type AuditLogEdge {
+  node: AuditLog!
+  cursor: String!
+}
+
+type WebhookEndpoint {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateWebhookEndpointInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateWebhookEndpointInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type WebhookEndpointConnection {
+  edges: [WebhookEndpointEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type WebhookEndpointEdge {
+  node: WebhookEndpoint!
+  cursor: String!
+}
+
+type Notification {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateNotificationInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateNotificationInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type NotificationConnection {
+  edges: [NotificationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type NotificationEdge {
+  node: Notification!
+  cursor: String!
+}
+
+type UserPreference {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateUserPreferenceInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateUserPreferenceInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type UserPreferenceConnection {
+  edges: [UserPreferenceEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type UserPreferenceEdge {
+  node: UserPreference!
+  cursor: String!
+}
+
+type CustomFieldDefinition {
+  id: ID!
+  tenantId: ID!
+  name: String
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: JSON
+}
+
+input CreateCustomFieldDefinitionInput {
+  name: String!
+  status: String
+  metadata: JSON
+}
+
+input UpdateCustomFieldDefinitionInput {
+  name: String
+  status: String
+  metadata: JSON
+}
+
+type CustomFieldDefinitionConnection {
+  edges: [CustomFieldDefinitionEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type CustomFieldDefinitionEdge {
+  node: CustomFieldDefinition!
+  cursor: String!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Query {
+  tenant(id: ID!): Tenant
+  tenants(first: Int, after: String, search: String): TenantConnection!
+  user(id: ID!): User
+  users(first: Int, after: String, search: String): UserConnection!
+  role(id: ID!): Role
+  roles(first: Int, after: String, search: String): RoleConnection!
+  permission(id: ID!): Permission
+  permissions(first: Int, after: String, search: String): PermissionConnection!
+  account(id: ID!): Account
+  accounts(first: Int, after: String, search: String): AccountConnection!
+  contact(id: ID!): Contact
+  contacts(first: Int, after: String, search: String): ContactConnection!
+  lead(id: ID!): Lead
+  leads(first: Int, after: String, search: String): LeadConnection!
+  pipeline(id: ID!): Pipeline
+  pipelines(first: Int, after: String, search: String): PipelineConnection!
+  pipelinestage(id: ID!): PipelineStage
+  pipelinestages(first: Int, after: String, search: String): PipelineStageConnection!
+  deal(id: ID!): Deal
+  deals(first: Int, after: String, search: String): DealConnection!
+  activity(id: ID!): Activity
+  activitys(first: Int, after: String, search: String): ActivityConnection!
+  task(id: ID!): Task
+  tasks(first: Int, after: String, search: String): TaskConnection!
+  meeting(id: ID!): Meeting
+  meetings(first: Int, after: String, search: String): MeetingConnection!
+  calllog(id: ID!): CallLog
+  calllogs(first: Int, after: String, search: String): CallLogConnection!
+  ticket(id: ID!): Ticket
+  tickets(first: Int, after: String, search: String): TicketConnection!
+  ticketcomment(id: ID!): TicketComment
+  ticketcomments(first: Int, after: String, search: String): TicketCommentConnection!
+  slaconfig(id: ID!): SLAConfig
+  slaconfigs(first: Int, after: String, search: String): SLAConfigConnection!
+  workflowrule(id: ID!): WorkflowRule
+  workflowrules(first: Int, after: String, search: String): WorkflowRuleConnection!
+  emailcampaign(id: ID!): EmailCampaign
+  emailcampaigns(first: Int, after: String, search: String): EmailCampaignConnection!
+  invoice(id: ID!): Invoice
+  invoices(first: Int, after: String, search: String): InvoiceConnection!
+  contract(id: ID!): Contract
+  contracts(first: Int, after: String, search: String): ContractConnection!
+  auditlog(id: ID!): AuditLog
+  auditlogs(first: Int, after: String, search: String): AuditLogConnection!
+  webhookendpoint(id: ID!): WebhookEndpoint
+  webhookendpoints(first: Int, after: String, search: String): WebhookEndpointConnection!
+  notification(id: ID!): Notification
+  notifications(first: Int, after: String, search: String): NotificationConnection!
+  userpreference(id: ID!): UserPreference
+  userpreferences(first: Int, after: String, search: String): UserPreferenceConnection!
+  customfielddefinition(id: ID!): CustomFieldDefinition
+  customfielddefinitions(first: Int, after: String, search: String): CustomFieldDefinitionConnection!
+}
+
+type Mutation {
+  createTenant(input: CreateTenantInput!): Tenant!
+  updateTenant(id: ID!, input: UpdateTenantInput!): Tenant!
+  deleteTenant(id: ID!): Boolean!
+  createUser(input: CreateUserInput!): User!
+  updateUser(id: ID!, input: UpdateUserInput!): User!
+  deleteUser(id: ID!): Boolean!
+  createRole(input: CreateRoleInput!): Role!
+  updateRole(id: ID!, input: UpdateRoleInput!): Role!
+  deleteRole(id: ID!): Boolean!
+  createPermission(input: CreatePermissionInput!): Permission!
+  updatePermission(id: ID!, input: UpdatePermissionInput!): Permission!
+  deletePermission(id: ID!): Boolean!
+  createAccount(input: CreateAccountInput!): Account!
+  updateAccount(id: ID!, input: UpdateAccountInput!): Account!
+  deleteAccount(id: ID!): Boolean!
+  createContact(input: CreateContactInput!): Contact!
+  updateContact(id: ID!, input: UpdateContactInput!): Contact!
+  deleteContact(id: ID!): Boolean!
+  createLead(input: CreateLeadInput!): Lead!
+  updateLead(id: ID!, input: UpdateLeadInput!): Lead!
+  deleteLead(id: ID!): Boolean!
+  createPipeline(input: CreatePipelineInput!): Pipeline!
+  updatePipeline(id: ID!, input: UpdatePipelineInput!): Pipeline!
+  deletePipeline(id: ID!): Boolean!
+  createPipelineStage(input: CreatePipelineStageInput!): PipelineStage!
+  updatePipelineStage(id: ID!, input: UpdatePipelineStageInput!): PipelineStage!
+  deletePipelineStage(id: ID!): Boolean!
+  createDeal(input: CreateDealInput!): Deal!
+  updateDeal(id: ID!, input: UpdateDealInput!): Deal!
+  deleteDeal(id: ID!): Boolean!
+  createActivity(input: CreateActivityInput!): Activity!
+  updateActivity(id: ID!, input: UpdateActivityInput!): Activity!
+  deleteActivity(id: ID!): Boolean!
+  createTask(input: CreateTaskInput!): Task!
+  updateTask(id: ID!, input: UpdateTaskInput!): Task!
+  deleteTask(id: ID!): Boolean!
+  createMeeting(input: CreateMeetingInput!): Meeting!
+  updateMeeting(id: ID!, input: UpdateMeetingInput!): Meeting!
+  deleteMeeting(id: ID!): Boolean!
+  createCallLog(input: CreateCallLogInput!): CallLog!
+  updateCallLog(id: ID!, input: UpdateCallLogInput!): CallLog!
+  deleteCallLog(id: ID!): Boolean!
+  createTicket(input: CreateTicketInput!): Ticket!
+  updateTicket(id: ID!, input: UpdateTicketInput!): Ticket!
+  deleteTicket(id: ID!): Boolean!
+  createTicketComment(input: CreateTicketCommentInput!): TicketComment!
+  updateTicketComment(id: ID!, input: UpdateTicketCommentInput!): TicketComment!
+  deleteTicketComment(id: ID!): Boolean!
+  createSLAConfig(input: CreateSLAConfigInput!): SLAConfig!
+  updateSLAConfig(id: ID!, input: UpdateSLAConfigInput!): SLAConfig!
+  deleteSLAConfig(id: ID!): Boolean!
+  createWorkflowRule(input: CreateWorkflowRuleInput!): WorkflowRule!
+  updateWorkflowRule(id: ID!, input: UpdateWorkflowRuleInput!): WorkflowRule!
+  deleteWorkflowRule(id: ID!): Boolean!
+  createEmailCampaign(input: CreateEmailCampaignInput!): EmailCampaign!
+  updateEmailCampaign(id: ID!, input: UpdateEmailCampaignInput!): EmailCampaign!
+  deleteEmailCampaign(id: ID!): Boolean!
+  createInvoice(input: CreateInvoiceInput!): Invoice!
+  updateInvoice(id: ID!, input: UpdateInvoiceInput!): Invoice!
+  deleteInvoice(id: ID!): Boolean!
+  createContract(input: CreateContractInput!): Contract!
+  updateContract(id: ID!, input: UpdateContractInput!): Contract!
+  deleteContract(id: ID!): Boolean!
+  createAuditLog(input: CreateAuditLogInput!): AuditLog!
+  updateAuditLog(id: ID!, input: UpdateAuditLogInput!): AuditLog!
+  deleteAuditLog(id: ID!): Boolean!
+  createWebhookEndpoint(input: CreateWebhookEndpointInput!): WebhookEndpoint!
+  updateWebhookEndpoint(id: ID!, input: UpdateWebhookEndpointInput!): WebhookEndpoint!
+  deleteWebhookEndpoint(id: ID!): Boolean!
+  createNotification(input: CreateNotificationInput!): Notification!
+  updateNotification(id: ID!, input: UpdateNotificationInput!): Notification!
+  deleteNotification(id: ID!): Boolean!
+  createUserPreference(input: CreateUserPreferenceInput!): UserPreference!
+  updateUserPreference(id: ID!, input: UpdateUserPreferenceInput!): UserPreference!
+  deleteUserPreference(id: ID!): Boolean!
+  createCustomFieldDefinition(input: CreateCustomFieldDefinitionInput!): CustomFieldDefinition!
+  updateCustomFieldDefinition(id: ID!, input: UpdateCustomFieldDefinitionInput!): CustomFieldDefinition!
+  deleteCustomFieldDefinition(id: ID!): Boolean!
+}
+
+type Subscription {
+  tenantCreated: Tenant!
+  tenantUpdated: Tenant!
+  userCreated: User!
+  userUpdated: User!
+  roleCreated: Role!
+  roleUpdated: Role!
+  permissionCreated: Permission!
+  permissionUpdated: Permission!
+  accountCreated: Account!
+  accountUpdated: Account!
+  contactCreated: Contact!
+  contactUpdated: Contact!
+  leadCreated: Lead!
+  leadUpdated: Lead!
+  pipelineCreated: Pipeline!
+  pipelineUpdated: Pipeline!
+  pipelinestageCreated: PipelineStage!
+  pipelinestageUpdated: PipelineStage!
+  dealCreated: Deal!
+  dealUpdated: Deal!
+  activityCreated: Activity!
+  activityUpdated: Activity!
+  taskCreated: Task!
+  taskUpdated: Task!
+  meetingCreated: Meeting!
+  meetingUpdated: Meeting!
+  calllogCreated: CallLog!
+  calllogUpdated: CallLog!
+  ticketCreated: Ticket!
+  ticketUpdated: Ticket!
+  ticketcommentCreated: TicketComment!
+  ticketcommentUpdated: TicketComment!
+  slaconfigCreated: SLAConfig!
+  slaconfigUpdated: SLAConfig!
+  workflowruleCreated: WorkflowRule!
+  workflowruleUpdated: WorkflowRule!
+  emailcampaignCreated: EmailCampaign!
+  emailcampaignUpdated: EmailCampaign!
+  invoiceCreated: Invoice!
+  invoiceUpdated: Invoice!
+  contractCreated: Contract!
+  contractUpdated: Contract!
+  auditlogCreated: AuditLog!
+  auditlogUpdated: AuditLog!
+  webhookendpointCreated: WebhookEndpoint!
+  webhookendpointUpdated: WebhookEndpoint!
+  notificationCreated: Notification!
+  notificationUpdated: Notification!
+  userpreferenceCreated: UserPreference!
+  userpreferenceUpdated: UserPreference!
+  customfielddefinitionCreated: CustomFieldDefinition!
+  customfielddefinitionUpdated: CustomFieldDefinition!
+}

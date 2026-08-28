@@ -1,0 +1,27 @@
+name: RelateIQ Enterprise CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js 20.x
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20.x
+
+    - name: Run Automated Test Suites
+      run: |
+        node backend/tests/runner.js
+
+    - name: Verify Code Metric Thresholds
+      run: |
+        node scripts/count-loc.js
