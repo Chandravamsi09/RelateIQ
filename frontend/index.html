@@ -17,71 +17,95 @@
 
   <!-- Sidebar -->
   <aside id="sidebar" class="w-64 bg-slate-950 border-r border-slate-800 flex flex-col flex-shrink-0 transition-all duration-300">
-    <div class="h-16 flex items-center justify-between px-5 border-b border-slate-800">
-      <div class="flex items-center gap-3">
+    
+    <!-- Sidebar Header -->
+    <div id="sidebar-header" class="h-16 flex items-center justify-between px-4 border-b border-slate-800">
+      <!-- Expanded Brand Header -->
+      <div id="brand-expanded" class="flex items-center gap-3 min-w-0">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 flex items-center justify-center font-black text-white shadow-lg shadow-blue-500/25 flex-shrink-0">
+          R
+        </div>
+        <div class="min-w-0">
+          <span class="font-extrabold text-base tracking-tight bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent truncate block">RelateIQ</span>
+          <span class="block text-[10px] text-slate-500 uppercase tracking-widest font-semibold truncate">Enterprise CRM</span>
+        </div>
+      </div>
+
+      <!-- Collapsed Brand Header (Hidden by default) -->
+      <div id="brand-collapsed" class="hidden w-full flex flex-col items-center gap-2">
         <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 flex items-center justify-center font-black text-white shadow-lg shadow-blue-500/25">
           R
         </div>
-        <div>
-          <span class="font-extrabold text-base tracking-tight bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">RelateIQ</span>
-          <span class="block text-[10px] text-slate-500 uppercase tracking-widest font-semibold">Enterprise CRM</span>
-        </div>
       </div>
-      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+
+      <!-- Toggle Button (Collapse / Expand Arrow) -->
+      <button id="sidebar-toggle-btn" onclick="toggleSidebar()" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/80 transition flex-shrink-0" title="Collapse sidebar">
+        <!-- Chevron Left Icon (when expanded) -->
+        <svg id="icon-chevron-left" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        <!-- Chevron Right Icon (when collapsed) -->
+        <svg id="icon-chevron-right" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>
       </button>
     </div>
 
+    <!-- Navigation Items -->
     <nav class="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto custom-scrollbar">
-      <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition bg-blue-600 text-white shadow-lg shadow-blue-600/30">
+      <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition bg-blue-600 text-white shadow-lg shadow-blue-600/30" title="Executive Cockpit">
         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
-        <span class="nav-label">Executive Cockpit</span>
+        <span class="nav-label truncate">Executive Cockpit</span>
       </button>
 
-      <button onclick="switchTab('deals')" id="nav-deals" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900">
+      <button onclick="switchTab('deals')" id="nav-deals" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Deals Kanban">
         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>
-        <span class="nav-label">Deals Kanban</span>
+        <span class="nav-label truncate">Deals Kanban</span>
       </button>
 
-      <button onclick="switchTab('leads')" id="nav-leads" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900">
+      <button onclick="switchTab('leads')" id="nav-leads" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Lead Intelligence">
         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-        <span class="nav-label">Lead Intelligence</span>
+        <span class="nav-label truncate">Lead Intelligence</span>
       </button>
 
-      <button onclick="switchTab('accounts')" id="nav-accounts" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900">
+      <button onclick="switchTab('accounts')" id="nav-accounts" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Accounts & 360">
         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-        <span class="nav-label">Accounts & 360</span>
+        <span class="nav-label truncate">Accounts & 360</span>
       </button>
 
-      <button onclick="switchTab('contacts')" id="nav-contacts" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900">
+      <button onclick="switchTab('contacts')" id="nav-contacts" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Contact Registry">
         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-        <span class="nav-label">Contact Registry</span>
+        <span class="nav-label truncate">Contact Registry</span>
       </button>
 
-      <button onclick="switchTab('activities')" id="nav-activities" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900">
+      <button onclick="switchTab('activities')" id="nav-activities" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Tasks & Meetings">
         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-        <span class="nav-label">Tasks & Meetings</span>
+        <span class="nav-label truncate">Tasks & Meetings</span>
       </button>
 
-      <button onclick="switchTab('support')" id="nav-support" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900">
+      <button onclick="switchTab('support')" id="nav-support" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Help Desk & SLA">
         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-        <span class="nav-label">Help Desk & SLA</span>
+        <span class="nav-label truncate">Help Desk & SLA</span>
       </button>
 
-      <button onclick="switchTab('workflows')" id="nav-workflows" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900">
+      <button onclick="switchTab('workflows')" id="nav-workflows" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition text-slate-400 hover:text-white hover:bg-slate-900" title="Workflow Engine">
         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-        <span class="nav-label">Workflow Engine</span>
+        <span class="nav-label truncate">Workflow Engine</span>
       </button>
     </nav>
 
-    <div class="p-4 border-t border-slate-800/80 text-xs text-slate-500 flex items-center justify-between">
-      <span class="inline-flex items-center gap-1.5">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        API Connected (:5000)
-      </span>
-      <span class="font-mono text-[10px]">v1.0.0</span>
+    <!-- Sidebar Footer -->
+    <div class="p-4 border-t border-slate-800/80 text-xs text-slate-500 flex items-center justify-between overflow-hidden">
+      <div id="footer-expanded" class="flex items-center justify-between w-full">
+        <span class="inline-flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          API Connected (:5000)
+        </span>
+        <span class="font-mono text-[10px]">v1.0.0</span>
+      </div>
+      <div id="footer-collapsed" class="hidden w-full flex justify-center">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" title="API Connected"></span>
+      </div>
     </div>
   </aside>
 
@@ -358,6 +382,7 @@
 
   <script>
     let appState = { leads: [], deals: [], accounts: [], contacts: [], activities: [], tickets: [], workflows: [] };
+    let isSidebarCollapsed = false;
 
     async function initApp() {
       try {
@@ -471,6 +496,21 @@
       `).join('');
     }
 
+    function renderActivities() {
+      document.getElementById('activities-list').innerHTML = appState.activities.map(act => `
+        <div class="p-4 bg-slate-950 border border-slate-800 rounded-2xl flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="px-2 py-0.5 rounded text-xs font-semibold ${act.type === 'MEETING' ? 'bg-blue-500/10 text-blue-400' : 'bg-amber-500/10 text-amber-400'} border border-slate-800">${act.type}</span>
+            <div>
+              <p class="text-sm font-semibold text-slate-200">${act.subject}</p>
+              <p class="text-xs text-slate-500">${act.time} • Assigned to ${act.assignedTo}</p>
+            </div>
+          </div>
+          <span class="px-2.5 py-1 rounded text-xs font-semibold ${act.status === 'COMPLETED' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-slate-800 text-slate-300'}">${act.status}</span>
+        </div>
+      `).join('');
+    }
+
     function renderTickets() {
       document.getElementById('tickets-table-body').innerHTML = appState.tickets.map(t => `
         <tr class="hover:bg-slate-900/40 transition">
@@ -527,7 +567,7 @@
     }
 
     function switchTab(tabId) {
-      ['dashboard', 'deals', 'leads', 'accounts', 'contacts', 'support', 'workflows'].forEach(t => {
+      ['dashboard', 'deals', 'leads', 'accounts', 'contacts', 'activities', 'support', 'workflows'].forEach(t => {
         const el = document.getElementById('tab-' + t);
         const btn = document.getElementById('nav-' + t);
         if (el && btn) {
@@ -545,15 +585,58 @@
 
     function toggleSidebar() {
       const sidebar = document.getElementById('sidebar');
+      const brandExpanded = document.getElementById('brand-expanded');
+      const brandCollapsed = document.getElementById('brand-collapsed');
+      const iconChevronLeft = document.getElementById('icon-chevron-left');
+      const iconChevronRight = document.getElementById('icon-chevron-right');
+      const toggleBtn = document.getElementById('sidebar-toggle-btn');
+      const footerExpanded = document.getElementById('footer-expanded');
+      const footerCollapsed = document.getElementById('footer-collapsed');
       const labels = document.querySelectorAll('.nav-label');
-      if (sidebar.classList.contains('w-64')) {
+      const navButtons = document.querySelectorAll('.nav-btn');
+
+      isSidebarCollapsed = !isSidebarCollapsed;
+
+      if (isSidebarCollapsed) {
+        // COLLAPSED MODE (w-20)
         sidebar.classList.remove('w-64');
         sidebar.classList.add('w-20');
+
+        brandExpanded.classList.add('hidden');
+        brandCollapsed.classList.remove('hidden');
+
+        iconChevronLeft.classList.add('hidden');
+        iconChevronRight.classList.remove('hidden');
+        toggleBtn.title = "Expand sidebar";
+
+        footerExpanded.classList.add('hidden');
+        footerCollapsed.classList.remove('hidden');
+
         labels.forEach(l => l.classList.add('hidden'));
+        navButtons.forEach(btn => {
+          btn.classList.add('justify-center', 'px-0');
+          btn.classList.remove('px-3.5');
+        });
       } else {
+        // EXPANDED MODE (w-64)
         sidebar.classList.remove('w-20');
         sidebar.classList.add('w-64');
+
+        brandExpanded.classList.remove('hidden');
+        brandCollapsed.classList.add('hidden');
+
+        iconChevronLeft.classList.remove('hidden');
+        iconChevronRight.classList.add('hidden');
+        toggleBtn.title = "Collapse sidebar";
+
+        footerExpanded.classList.remove('hidden');
+        footerCollapsed.classList.add('hidden');
+
         labels.forEach(l => l.classList.remove('hidden'));
+        navButtons.forEach(btn => {
+          btn.classList.remove('justify-center', 'px-0');
+          btn.classList.add('px-3.5');
+        });
       }
     }
 
